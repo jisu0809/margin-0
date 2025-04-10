@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+        <form id="myForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            <label for="color">Favorite Color:</label>
+            <select id="color" name="color">
+                <option value="Red">Red</option>
+                <option value="Blue">Blue</option>
+                <option value="Green">Green</option>
+            </select>
+            <button type="submit">Submit</button>
+        </form>
+        <p id="result"></p>
+        <script>
+            var myform = document.getElementById("myForm");
+            console.log(myform);
+            console.log(myform.childNodes);
+            
+            function createContent(event) {
+                event.preventDefault();
+                const name = document.getElementById('name').value;
+                const color = document.getElementById('color').value;
+                const result = document.getElementById('result');
+                result.innerHTML = `Hello, ${name}! Your favorite color is ${color}.`;
+                }
+                document.getElementById('myForm').addEventListener('submit',createContent);
+
+        </script>
+    </body>      
+</html>
