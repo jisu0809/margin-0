@@ -1,0 +1,21 @@
+form{
+    text-align: center;
+}
+.button {
+    background-color: rgb(231, 232, 231);
+    border: 10px black;
+    border-radius: 10px;
+    box-shadow: rgb(166, 166, 166) 0px 2px 4px 0px;
+    color: rgb(255, 255, 255);
+    cursor: auto;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 20px;
+    padding: 20px 20px;
+    text-align: center;
+    width: 378px;
+    margin: 30px
+    }
+.button:hover{
+    background-color: rgb(255, 255, 255);
+}
