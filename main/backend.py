@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, session, redirect, url_for
 app = Flask(__name__)
+app.secret_key = 'fjaoidfj'
 
 @app.route('/')
 def index():
@@ -12,7 +13,8 @@ def login():
                 session['password'] = request.form['password']
                 session['password_match'] = request.form['password_match']
                 return redirect(url_for('mainpage_prof'))
-        return render_template("loginpage.html")
+        else:
+                return render_template("loginpage.html")
 
 @app.route('/mainpage_prof')
 def mainpage_prof():        

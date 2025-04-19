@@ -6,7 +6,7 @@
     <body>
         <form action="/login" method="POST"  id="myForm">
             <label for="name">Name:</label>
-            <input class=button value="Username" type="text" id="username" name="name" required >
+            <input class=button placeholder="username" type="text" id="username" name="username" required >
             <br>
             <label for="password">password:</label>
             <input class=button type="password" id="password" name="password" required>
@@ -18,18 +18,7 @@
             <button class=button type="button">회원가입</button>
         </form>
         <p id="result"></p>
-        <script>
-                var myform = document.getElementById("myForm");
-                console.log(myform);
-                console.log(myform.childNodes);
-                
-                function createContent(event) {
-                    const name = document.getElementById('username').value;
-                    const color = document.getElementById('password').value;
-                    }
-                    document.getElementById('myForm').addEventListener('submit',createContent);
-    
-        </script>
+
         
     </body>      
 </html>
