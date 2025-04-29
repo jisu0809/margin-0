@@ -5,17 +5,19 @@
     </head>
     <body>
         <form action="/login" method="POST"  id="myForm">
-            <label for="name">Name:</label>
-            <input class=button placeholder="username" type="text" id="username" name="username" required >
+            <button class="button">학생</button>
+            <button class="button">교수자</button>
             <br>
-            <label for="password">password:</label>
-            <input class=button type="password" id="password" name="password" required>
-            <br>
-            <label for="password">password match:</label>
-            <input class=button type="password" id="password_match" name="password_match" required>
-            <br>
-            <button class=button type="submit">로그인</button>
-            <button class=button type="button">회원가입</button>
+            <div class="format">
+                <input class="input" placeholder="username" type="text" id="username" name="username" required >
+                <br>
+                <input class="input" placeholder="password"type="password" id="password" name="password" required>
+                <br>
+                <input class="input" placeholder="password check"type="password" id="password_match" name="password_match" required>
+                <br>
+                <button id="login" class="input" type="submit">로그인</button>
+                <button id="sign_up" class="input" type="button">회원가입</button>
+            </div>
         </form>
         <p id="result"></p>
 

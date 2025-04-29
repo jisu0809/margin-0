@@ -1,9 +1,29 @@
 <!DOCTYPE html>
 <html>
     <head>
-
+        <link href="{{ url_for('static', filename='mainpage_prof.css') }}" rel="stylesheet" />
     </head>
     <body>
-        
+        <div class= "profile"> 
+
+            <h3>Name</h3>
+            <p>
+                ID: 2023106161 
+                Major: 
+                전화번호: 010-9579-0908
+            </p>
+        </div>
+        <div class= "class_list"> 
+            <a href="http://127.0.0.1:8000/mainpage_prof"> class1 </a>
+        </div>
+
+        <div class= "create_team"> 
+            <button onclick="create_team_button();" id="team_button" type="button">click me</button>
+        </div>
+    <script>
+        function create_team_button(){
+            alert("make");
+        }
+    </script>
     </body>      
 </html>

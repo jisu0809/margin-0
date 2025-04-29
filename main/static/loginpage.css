@@ -1,7 +1,31 @@
 form{
     text-align: center;
 }
-.button {
+
+.button{
+    background-color: rgb(231, 232, 231);
+    border: 10px black;
+    border-radius: 2px;
+    box-shadow: rgb(166, 166, 166) 0px 2px 4px 0px;
+    color: rgb(0, 0, 0);
+    cursor: auto;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 20px;
+    padding: 20px 20px;
+    text-align: center;
+    width: 250px;
+}
+
+.format{
+    padding: 50px;
+    border: 2px solid rgb(231, 232, 231);
+    width: 500px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.input {
     background-color: rgb(231, 232, 231);
     border: 10px black;
     border-radius: 10px;
@@ -14,8 +38,12 @@ form{
     padding: 20px 20px;
     text-align: center;
     width: 378px;
-    margin: 30px
+    margin: 30px;
     }
-.button:hover{
+.input:hover{
     background-color: rgb(255, 255, 255);
+}
+
+#login #sign_up{
+    width: 175px;
 }
