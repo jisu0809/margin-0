@@ -4,7 +4,7 @@
         <link href="{{ url_for('static', filename='loginpage.css') }}" rel="stylesheet" />
     </head>
     <body>
-        <form action="/login" method="POST"  id="myForm">
+        <form action="/signup" method="POST"  id="myForm">
             <button onlclick="stu_option" class="button" id="stu_option" >학생</button>
             <button onlclick="prof_option" class="button" id="prof_option">교수자</button>
             <br>
@@ -14,6 +14,17 @@
                 <input class="input" placeholder="password"type="password" id="password" name="password" required>
                 <br>
                 <input class="input" placeholder="password check"type="password" id="password_match" name="password_match" required>
+                <br>
+                <input class="input" placeholder="major"type="text" id="major" name="major" required>
+                <br>
+                <select class="input" placeholder="Grade" id="grade" name="grade" required>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                </select>
+                <br>
+                <input class="input" placeholder="Student Number"type="text" id="studentNUM" name="studentNUM" required>
                 <br>
                 <button id="login" class="input" type="submit">로그인</button>
                 <button id="sign_up" class="input" type="button">회원가입</button>
