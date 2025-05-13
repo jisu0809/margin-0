@@ -30,12 +30,10 @@
                 <button id="sign_up" class="input" type="button">회원가입</button>
             </div>
             {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                    <ul>
-                    {% for message in messages %}
-                        <li>{{ message }}</li>
-                {% endfor %}
-                </ul>
+                {% if messages %}     
+                <script>
+                    alert("{{ messages[-1] }}");
+                </script>
                 {% endif %}
             {% endwith %}
         </form>
