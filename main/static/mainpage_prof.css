@@ -1,11 +1,50 @@
-.profile{
-    border: 2px solid rgb(59, 59, 59);
-    width: 250px;
-    height: 150px;
-    margin-left: 25px;
+body{
+    margin: 0;
 }
 
+.container{
+    display: flex;
+    height: 100vh;
+
+}
+
+.sidebar {
+    width: 300px;
+    background-color: white;
+    padding: 20px;
+    border-right: 2px solid gray;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+
+.profile{
+    width: 100%;
+    border: 2px solid darkgray; 
+    padding:10px;
+    margin-bottom: 30px;
+    background-color: white;
+    text-align: center;
+    display:block;
+}
+.profile-pic {
+    width: 80px;
+    height: 80px;
+    background-color: white;
+    border-radius: 50%;
+    margin: 0 auto 10px;
+}
+
+
 .class_list{
+    flex: 1;
+    padding: 40px;
+    background-color: #fff;
+    }
+ 
+/*
 padding: 50px;
 margin-left: 300px;
 margin-right: 25px;
@@ -15,9 +54,18 @@ width: 1000px;
 position:absolute;
 top:5px;
 overflow: scroll;
+} */
+
+.create_team {
+    width: 100%;
+    padding: 15px;
+    font-size: 16px;
+    background-color: #e7e8e7;
+    border-radius: 10px;
+    border: 2px solid rgb(59, 59, 59) ;
+    cursor: auto;
 }
-
-
+/*
 #team_button{
     border: 2px solid rgb(59, 59, 59);
     margin: 50px;
@@ -33,9 +81,9 @@ overflow: scroll;
     line-height: 20px;
     padding: 20px 20px;
     margin: 30px 25px;
-}
-
+} */
 a{
+    display: inline-block;
     background-color: rgb(231, 232, 231);
     border: 10px black;
     border-radius: 10px;
@@ -49,4 +97,5 @@ a{
     text-align: center;
     width: 1000px;
     margin: 30px
+
 }
