@@ -1,0 +1,56 @@
+body{
+    margin: 0;
+}
+
+.container{
+    display: flex;
+    height: 100vh;
+
+}
+
+.sidebar {
+    width: 300px;
+    background-color: white;
+    padding: 20px;
+    border-right: 2px solid gray;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+
+.profile{
+    width: 100%;
+    border: 2px solid darkgray; 
+    padding:10px;
+    margin-bottom: 30px;
+    background-color: white;
+    text-align: center;
+    display:block;
+}
+.profile-pic {
+    width: 80px;
+    height: 80px;
+    background-color: white;
+    border-radius: 50%;
+    margin: 0 auto 10px;
+}
+
+
+.class_list{
+    flex: 1;
+    padding: 40px;
+    background-color: #fff;
+    }
+ 
+
+.create_team {
+    width: 100%;
+    padding: 15px;
+    font-size: 16px;
+    background-color: #e7e8e7;
+    border-radius: 10px;
+    border: 2px solid rgb(59, 59, 59) ;
+    cursor: auto;
+}
