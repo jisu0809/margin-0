@@ -32,7 +32,7 @@ def signup():
                 return render_template("signup.html")
 
 @app.route('/login', methods = ['GET','POST'])
-def signup():
+def login():
         if request.method == 'POST':
                 session['username'] = request.form['username']
                 session['password'] = request.form['password']
