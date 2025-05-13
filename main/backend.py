@@ -39,7 +39,7 @@ def signup():
 
                 conn = sqlite3.connect('logindatabase.db')
                 cursor = conn.cursor()
-                select_logininfo = "INSERT INTO signup_info_student(Username,Password,PasswordCHECK,Major,Grade,StudentNumber) VALUES (?,?,?,?,?,?)"
+                insert_logininfo = "INSERT INTO signup_info_student(Username,Password,PasswordCHECK,Major,Grade,StudentNumber) VALUES (?,?,?,?,?,?)"
                 cursor.execute(insert_logininfo,(session['username'],session['password'],session['password_match'],
                                                 session['major'],session['grade'],session['studentNUM']))
                 conn.commit()
