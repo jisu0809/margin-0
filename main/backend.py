@@ -45,13 +45,11 @@ def login():
                 session['password'] = request.form['password']
                 conn = sqlite3.connect('logindatabase.db')
                 cursor = conn.cursor()
-                cursor.execute("SELECT * FROM signup_info_student WHERE username = ? AND password = ?", session['username'], session['password'])
-                q = "SELECT password FROM users WHERE username = ?;"
-                cursor.execute(q, (session['username'],))
-                rows = cursor.fetchone()
-                print(rows)
-                print(rows[0])
-                
+                select_logininfo = "INSERT INTO signup_info_student(Username,Password,PasswordCHECK,Major,Grade,StudentNumber) VALUES (?,?,?,?,?,?)"
+                cursor.execute(insert_logininfo,(session['username'],session['password'],session['password_match'],
+                                                session['major'],session['grade'],session['studentNUM']))
+                conn.commit()
+                conn.close()
 
                 return redirect(url_for('mainpage_prof'))
         else:
