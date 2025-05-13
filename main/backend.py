@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session, redirect, url_for
+from flask import Flask, render_template, request, session, redirect, url_for, flash
 import sqlite3
 
 app = Flask(__name__)
@@ -21,33 +21,44 @@ def signup():
 
                 conn = sqlite3.connect('logindatabase.db')
                 cursor = conn.cursor()
-                insert_logininfo = "INSERT INTO signup_info_student(Username,Password,PasswordCHECK,Major,Grade,StudentNumber) VALUES (?,?,?,?,?,?)"
-                cursor.execute(insert_logininfo,(session['username'],session['password'],session['password_match'],
+                cursor.execute('SELECT * FROM signup_info_student WHERE username = ?', (session['username'],))
+                existing_user = cursor.fetchone()
+                if existing_user: 
+                        flash('이미 존재하는 사용자 이름입니다.')
+                        conn.commit()
+                        conn.close()
+                        return render_template("signup.html")
+                else:
+                        insert_logininfo = "INSERT INTO signup_info_student(Username,Password,PasswordCHECK,Major,Grade,StudentNumber) VALUES (?,?,?,?,?,?)"
+                        cursor.execute(insert_logininfo,(session['username'],session['password'],session['password_match'],
                                                 session['major'],session['grade'],session['studentNUM']))
-                conn.commit()
-                conn.close()
-
-                return redirect(url_for('login'))
+                        conn.commit()
+                        conn.close()
+                        return redirect(url_for('login'))
         else:
                 return render_template("signup.html")
 
 @app.route('/login', methods = ['GET','POST'])
-def signup():
+def login():
         if request.method == 'POST':
                 session['username'] = request.form['username']
                 session['password'] = request.form['password']
-
                 conn = sqlite3.connect('logindatabase.db')
                 cursor = conn.cursor()
-                select_logininfo = "INSERT INTO signup_info_student(Username,Password,PasswordCHECK,Major,Grade,StudentNumber) VALUES (?,?,?,?,?,?)"
-                cursor.execute(insert_logininfo,(session['username'],session['password'],session['password_match'],
-                                                session['major'],session['grade'],session['studentNUM']))
-                conn.commit()
-                conn.close()
+                cursor.execute("SELECT * FROM signup_info_student WHERE username = ? AND password = ?", session['username'], session['password'])
+                q = "SELECT password FROM users WHERE username = ?;"
+                cursor.execute(q, (session['username'],))
+                rows = cursor.fetchone()
+                print(rows)
+                print(rows[0])
+                
 
-                return redirect(url_for('mainpage_prof.html'))
+                return redirect(url_for('mainpage_prof'))
         else:
-                return render_template("signup.html")
+                return render_template("loginpage.html")
+
+
+
 
 
 @app.route('/mainpage_prof')

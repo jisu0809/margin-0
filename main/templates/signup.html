@@ -29,6 +29,15 @@
                 <button id="login" class="input" type="submit">로그인</button>
                 <button id="sign_up" class="input" type="button">회원가입</button>
             </div>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <ul>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                {% endfor %}
+                </ul>
+                {% endif %}
+            {% endwith %}
         </form>
         <p id="result"></p>
     <script>
