@@ -11,7 +11,8 @@ body{
 .sidebar {
     width: 300px;
     background-color: white;
-    padding: 20px;
+    padding: 40px;
+    padding-right: 40px;
     border-right: 2px solid gray;
     display: flex;
     flex-direction: column;
@@ -37,20 +38,35 @@ body{
     margin: 0 auto 10px;
 }
 
-
-.class_list{
-    flex: 1;
-    padding: 40px;
-    background-color: #fff;
+.class_list {
+        display: flex;
+        flex-direction: column;
+        padding: 40px;
+        background-color: #fff;
     }
- 
+.class_list a {
+        margin: 50px 0;
+        padding: 10px 15px;
+        background-color: #f0f0f0;
+        border-radius: 5px;
+}
 
-.create_team {
+.join_team {
     width: 100%;
     padding: 15px;
     font-size: 16px;
     background-color: #e7e8e7;
     border-radius: 10px;
     border: 2px solid rgb(59, 59, 59) ;
+    text-align: center;
     cursor: auto;
+}
+.notice {
+    width: 100%;
+    border: 2px solid darkgray; 
+    padding:20px;
+    margin-top: 30px;
+    background-color: white;
+    text-align: center;
+    display:block;
 }
