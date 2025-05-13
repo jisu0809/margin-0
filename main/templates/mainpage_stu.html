@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='mainpage_prof.css') }}" />
+    </head>
+    <body>
+    <div class="container">
+        <div class="sidebar">
+        <div class="profile"> 
+            <div class="profile-pic"></div>
+            <h3>Name</h3>
+            <p>ID: 2023106161</p>
+            <p>Major: </p> 
+            <p>전화번호: 010-9579-090 </p>
+            </div>
+            <div class= "create_team"> 
+            <button onclick="create_team_button();" id="team_button" type="button">new class</button>
+            </div>
+        </div>
+        <div class= "class_list"> 
+            <a href="http://127.0.0.1:8000/mainpage_prof"> class1 </a>
+        </div>
+
+    </div>
+    <script>
+        function create_team_button(){
+            alert("make");
+        }
+    </script>
+    </body>      
+</html>
