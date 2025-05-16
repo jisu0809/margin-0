@@ -5,8 +5,8 @@
     </head>
     <body>
         <form action="/signup" method="POST"  id="myForm">
-            <button onlclick="stu_option" class="button" id="stu_option" >학생</button>
-            <button onlclick="prof_option" class="button" id="prof_option">교수자</button>
+            <button onclick="stu_option" class="button" id="stu_option" >학생</button>
+            <button onclick="prof_option" class="button" id="prof_option">교수자</button>
             <br>
             <div class="format">
                 <input class="input" placeholder="username" type="text" id="username" name="username" required >
@@ -26,9 +26,9 @@
                 <br>
                 <input class="input" placeholder="Student Number"type="text" id="studentNUM" name="studentNUM" required>
                 <br>
-                <button id="login" class="input" type="submit">로그인</button>
-                <button id="sign_up" class="input" type="button">회원가입</button>
+                <button id="sign_up" class="input" type="submit">회원가입</button>
             </div>
+            <button id="login" class="input" type="button" onclick="location.href={url_for('templates''loginpage.html')}">로그인</button>
             {% with messages = get_flashed_messages() %}
                 {% if messages %}     
                 <script>

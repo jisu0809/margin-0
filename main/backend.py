@@ -24,9 +24,9 @@ def signup():
                 cursor.execute('SELECT * FROM signup_info_student WHERE username = ?', (session['username'],))
                 existing_user = cursor.fetchone()
                 if existing_user: 
-                        flash('이미 존재하는 사용자 이름입니다.')
                         conn.commit()
                         conn.close()
+                        flash('이미 존재하는 사용자 이름입니다.')
                         return render_template("signup.html")
                 else:
                         insert_logininfo = "INSERT INTO signup_info_student(Username,Password,PasswordCHECK,Major,Grade,StudentNumber) VALUES (?,?,?,?,?,?)"
@@ -34,6 +34,7 @@ def signup():
                                                 session['major'],session['grade'],session['studentNUM']))
                         conn.commit()
                         conn.close()
+                        flash('성공적으로 회원가입 되었습니다.')
                         return redirect(url_for('login'))
         else:
                 return render_template("signup.html")
