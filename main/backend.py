@@ -66,6 +66,9 @@ def login():
 @app.route('/mainpage_prof')
 def mainpage_prof():        
         return render_template("mainpage_prof.html")
+@app.route('/mainpage_stu')
+def mainpage_stu():        
+        return render_template("mainpage_stu.html")
 
 
 if __name__ == "__main__":
