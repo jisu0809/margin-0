@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='teample_stu.css') }}" />
+    <title>학생 대시보드</title>
+</head>
+<body>
+<div class="container">
+    <div class="sidebar">
+        <div class="profile">
+            <div class="profile-pic"></div>
+            <h3>{{ student_name }}</h3>
+            <p>ID: {{ student_id }}</p>
+            <p>전화번호: {{ student_phone }}</p>
+        </div>
+        <div class="menu">
+            <button onclick="location.href='/team/{{ my_team.id }}/board'">우리팀 게시판</button>
+            <button onclick="location.href='/team/{{ my_team.id }}/chat'">우리팀 채팅</button>
+            <button onclick="location.href='/team/{{ my_team.id }}/files'">파일함</button>
+            <button onclick="location.href='/logout'">로그아웃</button>
+        </div>
+    </div>
+    <div class="main-content">
+        <h2>내 팀: {{ my_team.name }}</h2>
+        <div class="team-members">
+            <b>팀원:</b>
+            {% for member in my_team.members %}
+                <span>{{ member.name }}</span>{% if not loop.last %}, {% endif %}
+            {% endfor %}
+        </div>
+        <div class="team-board-preview">
+            <h3>공지/최근글</h3>
+            <ul>
+            {% for post in recent_posts %}
+                <li>{{ post.title }} - {{ post.author }}</li>
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>

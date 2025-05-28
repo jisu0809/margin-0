@@ -1,0 +1,112 @@
+body {
+    margin: 0;
+    font-family: 'Noto Sans KR', Arial, sans-serif;
+    background-color: #eef4fb;
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 280px;
+    background-color: #294d80;
+    padding: 35px 20px;
+    border-right: 2.5px solid #375286;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile {
+    width: 100%;
+    border: 2px solid #3c6db4;
+    padding: 16px;
+    margin-bottom: 32px;
+    background-color: #f1f6fb;
+    border-radius: 16px;
+    text-align: center;
+    color: #22325a;
+}
+
+.profile-pic {
+    width: 80px;
+    height: 80px;
+    background-color: #3c6db4;
+    border-radius: 50%;
+    margin: 0 auto 12px auto;
+    background-image: url('/static/profile_default.png');
+    background-size: cover;
+    background-position: center;
+    border: 3px solid #fff;
+}
+
+.menu button {
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 12px 0;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #375286;
+    color: #fff;
+    border: none;
+    border-radius: 9px;
+    cursor: pointer;
+    box-shadow: 0 2px 7px rgba(51,80,132,0.07);
+    transition: background 0.2s;
+}
+.menu button:hover {
+    background-color: #21315b;
+}
+
+.main-content {
+    flex: 1;
+    padding: 45px 50px;
+    background-color: #eef4fb;
+    overflow-y: auto;
+}
+
+h2 {
+    color: #294d80;
+    font-size: 2.1rem;
+    margin-bottom: 32px;
+}
+
+.team-card {
+    background-color: #fff;
+    border: 2px solid #bcd4f6;
+    border-radius: 14px;
+    margin-bottom: 32px;
+    padding: 26px 28px;
+    box-shadow: 0 2px 12px rgba(41,77,128,0.06);
+}
+
+.team-header {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+    color: #375286;
+}
+
+.team-members {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    color: #284061;
+}
+
+.team-actions button {
+    margin-right: 10px;
+    padding: 8px 18px;
+    border: none;
+    border-radius: 6px;
+    background: #e3edfb;
+    color: #294d80;
+    font-weight: 500;
+    cursor: pointer;
+    font-size: 15px;
+    transition: background 0.18s;
+}
+.team-actions button:hover {
+    background: #bcd4f6;
+}
