@@ -1,3 +1,7 @@
+body{
+    text-align: center;
+}
+
 form{
     text-align: center;
 }
@@ -46,4 +50,24 @@ form{
 
 #login #sign_up{
     width: 175px;
+}
+
+#student_button{
+    display: block;
+}
+#prof_button{
+    display: none; 
+}
+
+#stu_option{
+    background-color: blue;
+    color: white;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+#prof_option{
+    background-color: white;
+    margin-right: auto;
+    margin-left: auto;
 }
