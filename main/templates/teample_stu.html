@@ -22,13 +22,67 @@
         </div>
     </div>
     <div class="main-content">
-        <h2>내 팀:</h2>
-        <!-- TODO: 내 팀명/팀원 정보 동적 표시 -->
+        <h2>내 팀: {{ my_team.name }}</h2>
+        <div class="team-members">
+            {% for member in my_team.members %}
+                <span>{{ member.name }}</span>{% if not loop.last %}, {% endif %}
+            {% endfor %}
+        </div>
 =        <div class="team-board-preview">
             <h3>공지/최근글</h3>
             <!-- TODO: 최근 게시글, 공지글 리스트 표시 -->
         </div>
+        <div id="chat-section" style="margin-top:32px;">
+            <h3>팀 채팅</h3>
+            <div id="chat" style="border:1px solid #ccc; height:200px; overflow-y:scroll; padding:10px; background:#fff;"></div>
+            <input id="msg" autocomplete="off" placeholder="메시지 입력" style="width:60%;">
+            <button onclick="sendMsg()">전송</button>
+            <form id="fileForm" enctype="multipart/form-data" style="margin-top:10px;">
+                <input type="file" id="file" name="file">
+                <button type="submit">파일올리기</button>
+            </form>
+        </div>
     </div>
 </div>
+<script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+<script>
+    // === 팀 ID와 username은 서버에서 템플릿 변수로 전달 필요 ===
+    const team_id = {{ my_team.id }};
+    const username = "{{ student_name }}";
+    const socket = io();
+
+    // 팀 채팅방에 입장
+    socket.emit('join', {team_id, user: username});
+
+    // 채팅 수신 이벤트
+    socket.on('chat', data => {
+        let chat = document.getElementById('chat');
+        let el = document.createElement('div');
+        el.innerHTML = `<b>${data.user}:</b> ${data.msg}`;
+        chat.appendChild(el);
+        chat.scrollTop = chat.scrollHeight;
+    });
+
+    // 채팅 전송 함수
+    function sendMsg() {
+        const val = document.getElementById('msg').value;
+        if (val) {
+            socket.emit('chat', {team_id, msg: val, user: username});
+            document.getElementById('msg').value = '';
+        }
+    }
+
+    // 파일 업로드 핸들러
+    document.getElementById('fileForm').onsubmit = function(e) {
+        e.preventDefault();
+        const input = document.getElementById('file');
+        if (input.files.length > 0) {
+            const form = new FormData();
+            form.append('file', input.files[0]);
+            fetch(`/upload/${team_id}`, { method:'POST', body:form });
+            input.value = '';
+        }
+    }
+</script>
 </body>
 </html>
