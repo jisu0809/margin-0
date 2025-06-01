@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='teample_stu.css') }}">
+    <title>학생 대시보드</title>
+</head>
+<body>
+<div class="container">
+    <div class="sidebar">
+        <div class="profile">
+            <div class="profile-pic"></div>
+            <h3>{{ student_name }}</h3>
+            <p>ID: {{ student_id }}</p>
+            <p>전화번호: {{ student_phone }}</p>
+        </div>
+        <div class="menu">
+            <button><!-- TODO: 우리팀 게시판 기능 연동 --></button>
+            <button><!-- TODO: 우리팀 채팅 연동 --></button>
+            <button><!-- TODO: 파일함 연동 --></button>
+            <button><!-- TODO: 로그아웃 연동 --></button>
+            <!-- 필요시 기타 메뉴 추가 -->
+        </div>
+    </div>
+    <div class="main-content">
+        <h2>내 팀:</h2>
+        <!-- TODO: 내 팀명/팀원 정보 동적 표시 -->
+=        <div class="team-board-preview">
+            <h3>공지/최근글</h3>
+            <!-- TODO: 최근 게시글, 공지글 리스트 표시 -->
+        </div>
+    </div>
+</div>
+</body>
+</html>

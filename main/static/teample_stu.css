@@ -1,0 +1,66 @@
+body {
+    margin: 0;
+    font-family: 'Noto Sans KR', Arial, sans-serif;
+    background: #f3fefc;
+}
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+.sidebar {
+    width: 260px;
+    background: #1b5c51;
+    padding: 30px 18px;
+    border-right: 2px solid #249b7b;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.profile {
+    width: 100%;
+    border: 2px solid #6fdcc2;
+    padding: 15px;
+    margin-bottom: 28px;
+    background: #e4fdf6;
+    border-radius: 12px;
+    text-align: center;
+    color: #185c4c;
+}
+.profile-pic {
+    width: 70px; height: 70px;
+    background: #45b49a;
+    border-radius: 50%;
+    margin: 0 auto 10px;
+    border: 2px solid #fff;
+    /* TODO: 실제 프로필 이미지 적용시 background-image 사용 */
+}
+.menu button {
+    width: 100%; margin-bottom: 13px;
+    padding: 11px 0;
+    font-size: 15px;
+    font-weight: bold;
+    background: #249b7b; color: #fff;
+    border: none; border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s;
+    /* TODO: 추후 각 버튼에 기능/링크 연결 */
+}
+.menu button:hover { background: #1b5c51; }
+
+.main-content {
+    flex: 1;
+    padding: 38px 35px;
+    background: #f3fefc;
+}
+h2 {
+    color: #249b7b;
+    margin-top: 0; margin-bottom: 28px;
+}
+.team-board-preview {
+    margin-top: 22px;
+    background: #eafcf8;
+    border-radius: 10px;
+    padding: 15px 14px;
+    /* TODO: 최근글/공지 동적 데이터 연동 */
+}
+/* 필요시 추가 스타일/TODO 주석 계속 추가 */

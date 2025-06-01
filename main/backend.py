@@ -109,8 +109,16 @@ def mainpage_stu():
         return render_template("mainpage_stu.html")
 
 
+
+
+@app.route('/teample_prof')
+def teample_prof():
+    return render_template("teample_prof.html")
+
+@app.route('/teample_stu')
+def teample_stu():
+    return render_template("teample_stu.html")
+
+
 if __name__ == "__main__":
         app.run( port="8000")
-
-
-
