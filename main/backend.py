@@ -185,10 +185,9 @@ def join_class():
 def teample_prof():
     return render_template("teample_prof.html")
 
-@app.route('/teample_stu')
-def teample_stu():
-    return render_template("teample_stu.html")
+if __name__ == '__main__':
+    if not os.path.exists(app.config['UPLOAD_FOLDER']):
+        os.makedirs(app.config['UPLOAD_FOLDER'])
+    socketio.run(app, port=8000, debug=True)
 
 
-if __name__ == "__main__":
-        app.run( port="8000")
