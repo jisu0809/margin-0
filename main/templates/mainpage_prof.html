@@ -13,8 +13,10 @@
             <p>Major: </p> 
             <p>전화번호: 010-9579-090 </p>
             </div>
-            <div class= "create_team"> 
-            <button onclick="create_team_button();" id="team_button" type="button">new class</button>
+            <div class= "create_class"> 
+            <form action="/move_to_create_class" method="POST">    
+                <button id="create_class_button" type="submit">create class</button>
+            </form>
             </div>
         </div>
         <div class= "class_list"> 
@@ -24,10 +26,5 @@
         </div>
 
     </div>
-    <script>
-        function create_team_button(){
-            alert("make");
-        }
-    </script>
     </body>      
 </html>

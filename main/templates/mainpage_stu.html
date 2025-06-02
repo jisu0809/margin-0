@@ -14,7 +14,10 @@
             <p>전화번호: 010-9579-090 </p>
             </div>
             <div class= "join_team"> 
-            <button onclick="join_team_button();" id="team_button" type="button">join_team</button>
+            <form action="/join_class" method="POST">    
+                <input placeholder = "class code" type="text" name= "class_code" required>
+                <button id="team_button" type="submit">join_class</button>
+            </form>
             </div>
             <div class= "notice"> 
                 <p>notice1</p>
