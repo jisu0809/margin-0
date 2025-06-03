@@ -6,6 +6,8 @@ import os
 
 app = Flask(__name__)
 app.secret_key = 'fjaoidfj'
+socketio = SocketIO(app) 
+app.config['UPLOAD_FOLDER'] = './uploads'
 
 @app.before_request
 def load_logged_in_user():
@@ -187,6 +189,54 @@ def join_class():
 @app.route('/teample_prof')
 def teample_prof():
     return render_template("teample_prof.html")
+
+@app.route('/teample_stu')
+def teample_stu():
+        my_team = {
+        'id': 3,  
+        'name': 'A조',
+        'members': [{'name': '홍길동'}, {'name': '김학생'}, {'name': '이학생'}]
+    }
+        return render_template(
+        "teample_stu.html",
+        my_team=my_team,
+        student_name='익명',
+        student_id='202301234',
+        student_phone='010-1234-5678'
+    )
+
+# 파일 업로드
+@app.route('/upload/<int:team_id>', methods=['POST'])
+def upload_file(team_id):
+    if 'file' not in request.files:
+        return 'No file', 400
+    file = request.files['file']
+    filename = file.filename
+    path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    file.save(path)
+    # 파일 업로드 시 채팅방에 메시지 알림
+    socketio.emit('chat', {
+        'msg': f'파일 업로드: <a href="/uploads/{filename}" target="_blank">{filename}</a>',
+        'user': session.get('username', '익명')
+    }, room=f'team_{team_id}')
+    return '', 204
+
+# === 업로드된 파일 제공 ===
+@app.route('/uploads/<filename>')
+def uploaded_file(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
+
+# === SocketIO: 팀별 실시간 채팅 ===
+@socketio.on('join')
+def on_join(data):
+    room = f"team_{data['team_id']}"
+    join_room(room)
+    emit('chat', {'msg': f"{data['user']}님이 입장했습니다.", 'user': 'system'}, room=room)
+
+@socketio.on('chat')
+def on_chat(data):
+    room = f"team_{data['team_id']}"
+    emit('chat', {'msg': data['msg'], 'user': data['user']}, room=room)
 
 if __name__ == '__main__':
     if not os.path.exists(app.config['UPLOAD_FOLDER']):
