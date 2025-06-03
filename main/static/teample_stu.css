@@ -1,3 +1,8 @@
+/* 모든 요소에 box-sizing 적용하여 레이아웃 예측성 향상 */
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     font-family: 'Noto Sans KR', Arial, sans-serif;

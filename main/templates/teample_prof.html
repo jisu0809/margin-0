@@ -34,21 +34,20 @@
                 {% endfor %}
             </div>
             <div class="team-actions">
-                <!-- 아래 버튼들은 각각 해당 기능 구현 필요 -->
                 <button onclick="location.href='/team/{{ team.id }}/board'">
-                    게시판 <!-- // TODO: 팀별 게시판 기능과 연동 필요 -->
+                    게시판 <!--팀별 게시판 기능과 연동 필요 -->
                 </button>
                 <button onclick="location.href='/team/{{ team.id }}/chat'">
-                    채팅 <!-- // TODO: 팀별 실시간 채팅 연동 필요 -->
+                    채팅 <!-- 팀별 실시간 채팅 연동 필요 -->
                 </button>
                 <button onclick="location.href='/team/{{ team.id }}/files'">
-                    파일 <!-- // TODO: 팀별 파일 업로드/다운로드 연동 필요 -->
+                    파일 <!-- 팀별 파일 업로드/다운로드 연동 필요 -->
                 </button>
             </div>
-            <!-- // TODO: 추후 팀 상세 설정, 팀원 관리, 강제 이동 등 기능 확장 가능 -->
+            <!--추후 팀 상세 설정, 팀원 관리, 강제 이동 등 기능 확장 가능 -->
         </div>
         {% endfor %}
-        <!-- // TODO: 팀이 없을 때 "아직 생성된 팀이 없습니다." 안내 메시지 등 추가 가능 -->
+        <!-- 팀이 없을 때 "아직 생성된 팀이 없습니다." 안내 메시지 등 추가 가능 -->
     </div>
 </div>
 </body>

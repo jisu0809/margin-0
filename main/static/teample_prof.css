@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     font-family: 'Noto Sans KR', Arial, sans-serif;
@@ -32,7 +36,7 @@ body {
     border-radius: 50%;
     margin: 0 auto 10px;
     border: 2px solid #fff;
-    /* // TODO: 실제 프로필 이미지 적용 시 background-image 동적으로 변경 */
+    /* TODO: 실제 프로필 이미지 적용 시 background-image 동적으로 변경 */
 }
 .menu button {
     width: 100%; margin-bottom: 13px;
@@ -43,7 +47,7 @@ body {
     border: none; border-radius: 8px;
     cursor: pointer;
     transition: background 0.2s;
-    /* // TODO: 추후 아이콘 추가 및 버튼 효과 등 UI 개선 가능 */
+    /* TODO: 추후 아이콘 추가 및 버튼 효과 등 UI 개선 가능 */
 }
 .menu button:hover { background: #21315b; }
 
@@ -74,7 +78,7 @@ h2 {
     font-size: 0.98rem;
     margin-bottom: 8px;
     color: #284061;
-    /* // TODO: 팀원 상태(팀장, 부팀장 등)에 따라 색상/뱃지 등 UI 확장 가능 */
+    /* TODO: 팀원 상태(팀장, 부팀장 등)에 따라 색상/뱃지 등 UI 확장 가능 */
 }
 .team-actions button {
     margin-right: 8px;
@@ -85,4 +89,4 @@ h2 {
     transition: background 0.18s;
 }
 .team-actions button:hover { background: #bcd4f6; }
-/* // TODO: 반응형(모바일), 접근성 등은 이후 단계에서 추가 개발 */
+/* TODO: 반응형(모바일), 접근성 등은 이후 단계에서 추가 개발 */

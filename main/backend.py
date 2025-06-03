@@ -1,5 +1,8 @@
 from flask import Flask, render_template, request, session, redirect, url_for, flash, g
 import sqlite3
+from flask_socketio import SocketIO, join_room, leave_room, emit
+import os
+
 
 app = Flask(__name__)
 app.secret_key = 'fjaoidfj'

@@ -1,5 +1,7 @@
 body{
     text-align: center;
+    font-family: sans-serif;
+    background-color: #f4f7f6;
 }
 
 form{
@@ -8,48 +10,56 @@ form{
 
 .button{
     background-color: rgb(231, 232, 231);
-    border: 10px black;
-    border-radius: 2px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
     box-shadow: rgb(166, 166, 166) 0px 2px 4px 0px;
     color: rgb(0, 0, 0);
-    cursor: auto;
+    cursor: pointer;
     font-size: 20px;
     font-weight: 500;
     line-height: 20px;
     padding: 20px 20px;
     text-align: center;
     width: 250px;
+    transition: background-color 0.2s;
 }
 
 .format{
     padding: 50px;
-    border: 2px solid rgb(231, 232, 231);
-    width: 500px;
+    border: 1px solid  #e7e8e7;
     margin-right: auto;
     margin-left: auto;
+    border-radius: 8px;
 }
 
 .input {
-    background-color: rgb(231, 232, 231);
-    border: 10px black;
+    background-color: rgb(245, 245, 245);
+    border: 1px solid #ccc;
     border-radius: 10px;
-    box-shadow: rgb(166, 166, 166) 0px 2px 4px 0px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1); 
     color: rgb(0, 0, 0);
-    cursor: auto;
+    cursor: text;
     font-size: 20px;
     font-weight: 500;
     line-height: 20px;
     padding: 20px 20px;
     text-align: center;
     width: 378px;
-    margin: 30px;
+    margin: 15px;
+    transition: border-color 0.2s;
     }
 .input:hover{
     background-color: rgb(255, 255, 255);
 }
 
+.input:focus {
+    outline: none; 
+    border-color: #294d80; 
+}
+
 #login #sign_up{
     width: 175px;
+    cursor: pointer;
 }
 
 #student_button{
@@ -60,7 +70,7 @@ form{
 }
 
 #stu_option{
-    background-color: blue;
+    background-color:#294d80;;
     color: white;
     margin-right: auto;
     margin-left: auto;
