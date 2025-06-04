@@ -1,92 +1,76 @@
-* {
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-    font-family: 'Noto Sans KR', Arial, sans-serif;
-    background: #eef4fb;
-}
-.container {
-    display: flex;
-    min-height: 100vh;
-}
+/* static/teample_prof.css */
+* { box-sizing: border-box; }
+body { margin: 0; font-family: 'Noto Sans KR', Arial, sans-serif; background: #f8f9fa; }
+.container { display: flex; min-height: 100vh; }
 .sidebar {
     width: 260px;
-    background: #294d80;
+    background: #667eea;
     padding: 30px 18px;
-    border-right: 2px solid #375286;
     display: flex;
     flex-direction: column;
     align-items: center;
+    flex-shrink: 0;
 }
 .profile {
     width: 100%;
-    border: 2px solid #3c6db4;
-    padding: 15px;
+    padding: 20px;
     margin-bottom: 28px;
-    background: #f1f6fb;
-    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
     text-align: center;
-    color: #22325a;
+    color: #ffffff;
 }
-.profile-pic {
-    width: 70px; height: 70px;
-    background: #3c6db4;
-    border-radius: 50%;
-    margin: 0 auto 10px;
-    border: 2px solid #fff;
-    /* TODO: 실제 프로필 이미지 적용 시 background-image 동적으로 변경 */
-}
+.profile-pic { width: 70px; height: 70px; background: #ffffff; border-radius: 50%; margin: 0 auto 15px; border: 2px solid #a3b0f3; }
 .menu button {
     width: 100%; margin-bottom: 13px;
-    padding: 11px 0;
+    padding: 13px 0;
     font-size: 15px;
     font-weight: bold;
-    background: #375286; color: #fff;
-    border: none; border-radius: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
     cursor: pointer;
     transition: background 0.2s;
-    /* TODO: 추후 아이콘 추가 및 버튼 효과 등 UI 개선 가능 */
 }
-.menu button:hover { background: #21315b; }
-
-.main-content {
-    flex: 1;
-    padding: 38px 35px;
-    background: #eef4fb;
-}
-h2 {
-    color: #294d80;
-    margin-top: 0; margin-bottom: 28px;
-}
+.menu button:hover { background: rgba(255, 255, 255, 0.3); }
+.main-content { flex: 1; padding: 40px 35px; }
+h2 { color: #343a40; margin-top: 0; margin-bottom: 30px; font-size: 2rem; }
 .team-card {
     background: #fff;
-    border: 2px solid #bcd4f6;
-    border-radius: 12px;
-    margin-bottom: 22px;
-    padding: 20px 20px;
-    box-shadow: 0 2px 8px rgba(41,77,128,0.06);
+    border-radius: 16px;
+    margin-bottom: 25px;
+    padding: 25px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
+    transition: all 0.3s;
 }
-.team-header {
-    font-weight: bold;
-    font-size: 1.1rem;
-    margin-bottom: 9px;
-    color: #375286;
-}
-.team-members {
-    font-size: 0.98rem;
-    margin-bottom: 8px;
-    color: #284061;
-    /* TODO: 팀원 상태(팀장, 부팀장 등)에 따라 색상/뱃지 등 UI 확장 가능 */
-}
+.team-card:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); }
+.team-header { font-weight: 700; font-size: 1.3rem; margin-bottom: 12px; color: #667eea; }
+.team-members { font-size: 1rem; margin-bottom: 15px; color: #495057; line-height: 1.7; }
 .team-actions button {
-    margin-right: 8px;
-    padding: 7px 15px;
-    border: none; border-radius: 6px;
-    background: #e3edfb; color: #294d80;
-    font-size: 14px; cursor: pointer;
-    transition: background 0.18s;
+    margin-right: 10px;
+    padding: 8px 18px;
+    border: 1px solid #d1d8f8;
+    border-radius: 8px;
+    background: #f1f3ff;
+    color: #5a6ed0;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
 }
-.team-actions button:hover { background: #bcd4f6; }
-/* TODO: 반응형(모바일), 접근성 등은 이후 단계에서 추가 개발 */
+.team-actions button:hover { background: #667eea; color: #ffffff; border-color: #667eea; }
+
+/* --- 반응형 디자인을 위한 미디어 쿼리 --- */
+@media screen and (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+    .sidebar {
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .main-content {
+        padding: 20px;
+    }
+}

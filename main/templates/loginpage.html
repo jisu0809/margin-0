@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="{{ url_for('static', filename='loginpage.css') }}" rel="stylesheet" />
     </head>
     <body>
@@ -40,7 +41,7 @@
         var prof_option = document.getElementById("prof_option");
         var stu_option = document.getElementById("stu_option");
         var student_button = document.getElementById("student_button");
-        
+        choose_stu();
         function choose_stu(){
             stu_option.style.backgroundColor = "blue";
             stu_option.style.color = "white";

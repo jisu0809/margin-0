@@ -1,71 +1,60 @@
-/* 모든 요소에 box-sizing 적용하여 레이아웃 예측성 향상 */
-* {
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-    font-family: 'Noto Sans KR', Arial, sans-serif;
-    background: #f3fefc;
-}
-.container {
-    display: flex;
-    min-height: 100vh;
-}
+/* static/teample_stu.css */
+* { box-sizing: border-box; }
+body { margin: 0; font-family: 'Noto Sans KR', Arial, sans-serif; background: #f8f9fa; }
+.container { display: flex; min-height: 100vh; }
 .sidebar {
     width: 260px;
-    background: #1b5c51;
+    background: #667eea;
     padding: 30px 18px;
-    border-right: 2px solid #249b7b;
     display: flex;
     flex-direction: column;
     align-items: center;
+    flex-shrink: 0;
 }
 .profile {
     width: 100%;
-    border: 2px solid #6fdcc2;
-    padding: 15px;
+    padding: 20px;
     margin-bottom: 28px;
-    background: #e4fdf6;
-    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
     text-align: center;
-    color: #185c4c;
+    color: #ffffff;
 }
-.profile-pic {
-    width: 70px; height: 70px;
-    background: #45b49a;
-    border-radius: 50%;
-    margin: 0 auto 10px;
-    border: 2px solid #fff;
-    /* TODO: 실제 프로필 이미지 적용시 background-image 사용 */
-}
+.profile-pic { width: 70px; height: 70px; background: #ffffff; border-radius: 50%; margin: 0 auto 15px; border: 2px solid #a3b0f3; }
 .menu button {
     width: 100%; margin-bottom: 13px;
-    padding: 11px 0;
+    padding: 13px 0;
     font-size: 15px;
     font-weight: bold;
-    background: #249b7b; color: #fff;
-    border: none; border-radius: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
     cursor: pointer;
     transition: background 0.2s;
-    /* TODO: 추후 각 버튼에 기능/링크 연결 */
 }
-.menu button:hover { background: #1b5c51; }
-
-.main-content {
-    flex: 1;
-    padding: 38px 35px;
-    background: #f3fefc;
-}
-h2 {
-    color: #249b7b;
-    margin-top: 0; margin-bottom: 28px;
-}
+.menu button:hover { background: rgba(255, 255, 255, 0.3); }
+.main-content { flex: 1; padding: 40px 35px; }
+h2 { color: #343a40; margin-top: 0; margin-bottom: 30px; font-size: 2rem; }
 .team-board-preview {
+    background: #fff;
+    border-radius: 16px;
     margin-top: 22px;
-    background: #eafcf8;
-    border-radius: 10px;
-    padding: 15px 14px;
-    /* TODO: 최근글/공지 동적 데이터 연동 */
+    padding: 25px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
 }
-/* 필요시 추가 스타일/TODO 주석 계속 추가 */
+.team-board-preview h3 { margin-top: 0; color: #667eea; }
+
+/* --- 반응형 디자인을 위한 미디어 쿼리 --- */
+@media screen and (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+    .sidebar {
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .main-content {
+        padding: 20px;
+    }
+}
