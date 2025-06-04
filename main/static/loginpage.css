@@ -62,10 +62,10 @@ form{
     cursor: pointer;
 }
 
-#student_button{
+#student_login{
     display: block;
 }
-#prof_button{
+#prof_login{
     display: none; 
 }
 

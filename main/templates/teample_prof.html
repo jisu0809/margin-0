@@ -9,9 +9,9 @@
     <div class="sidebar">
         <div class="profile">
             <div class="profile-pic"></div>
-            <h3>{{ prof_name }}</h3>
-            <p>ID: {{ prof_id }}</p>
-            <p>{{ prof_phone }}</p>
+            <h3>{{ current_class_info[3] }}</h3>
+            <p>ID: {{session['prof_number'] }}</p>
+            <p>class code: {{current_class_info[1]}}</p>
         </div>
         <div class="menu">
             <button onclick="location.href='/create_team'">팀 생성</button>

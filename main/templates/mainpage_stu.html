@@ -8,10 +8,11 @@
         <div class="sidebar">
         <div class="profile"> 
             <div class="profile-pic"></div>
-            <h3>Name</h3>
-            <p>ID: 2023106161</p>
-            <p>Major: </p> 
-            <p>전화번호: 010-9579-090 </p>
+            <h3>{{session['username']}}</h3>
+            <p>ID: {{session['student_number']}}</p>
+            <p>Major: {{session['major']}} </p> 
+            <p>Grade: {{ session['grade']}} </p> 
+
             </div>
             <div class= "join_team"> 
             <form action="/join_class" method="POST">    

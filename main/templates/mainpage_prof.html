@@ -8,11 +8,10 @@
         <div class="sidebar">
         <div class="profile"> 
             <div class="profile-pic"></div>
-            <h3>Name</h3>
-            <p>ID: 2023106161</p>
-            <p>Major: </p> 
-            <p>전화번호: 010-9579-090 </p>
-            </div>
+            <h3>{{session['username']}}</h3>
+            <p>ID: {{session['prof_number']}}</p>
+            <p>Major: {{session['major']}} </p> 
+        </div>
             <div class= "create_class"> 
             <form action="/move_to_create_class" method="POST">    
                 <button id="create_class_button" type="submit">create class</button>
@@ -20,9 +19,12 @@
             </div>
         </div>
         <div class= "class_list"> 
-            <a href="http://127.0.0.1:8000/mainpage_prof"> class1 </a>
-            <a href="http://127.0.0.1:8000/mainpage_prof"> class2 </a>
-            <a href="http://127.0.0.1:8000/mainpage_prof"> class3 </a>
+            {% for class in prof_all_class_info %}
+            <form action="/teample_prof" method="POST" >
+            <input type="hidden" name="class_code" value="{class[1]}">
+            <button type="submit">{{ class[0] }} (class code: {{ class[1] }})</button>
+            </form>
+            {% endfor %}
         </div>
 
     </div>
