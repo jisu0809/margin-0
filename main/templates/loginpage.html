@@ -8,24 +8,28 @@
             <button onclick="choose_stu()" class="button" id="stu_option" >학생</button>
             <button onclick="choose_prof()" class="button" id="prof_option">교수자</button>
             <br>
-            <form action="/login" method="POST"  id="myForm">    
-            <div id=student_button class="format">
+            <form action="/login" method="POST"  id="stu_login">    
+            <div class="format">
                 <input type="hidden" name="prof_or_stu" value="student">
-                <input class="input" placeholder="username" type="text" id="username" name="username" required >
+                <input class="input" placeholder="username" type="text" id="stu_username" name="username" required >
                 <br>
-                <input class="input" placeholder="password"type="password" id="password" name="password" required>
+                <input class="input" placeholder="password"type="password" id="stu_password" name="password" required>
                 <button id="login" class="input" type="submit">로그인</button>
             </div>
+            </form>
 
-            <div id=prof_button class="format">
+            <form action="/login" method="POST"  id="prof_login">    
+            <div class="format">
                 <input type="hidden" name="prof_or_stu" value="prof">
-                <input class="input" placeholder="prof username" type="text" id="username" name="username" required >
+                <input class="input" placeholder="username" type="text" id="prof_username" name="username" required >
                 <br>
-                <input class="input" placeholder="password"type="password" id="password" name="password" required>
+                <input class="input" placeholder="password"type="password" id="prof_password" name="password" required>
                 <button id="login" class="input" type="submit">로그인</button>
             </div>
+            </form>
             
-            <button id="sign_up" class="input" type="button">회원가입</button>
+            <button class="input" onclick="location.href='/signup'">회원가입</button>
+
             {% with messages = get_flashed_messages() %}
                 {% if messages %}     
                 <script>
@@ -33,23 +37,24 @@
                 </script>
                 {% endif %}
             {% endwith %}
-        </form>
+        
         <p id="result"></p>
         
     <script>
-        var prof_button = document.getElementById("prof_button");
         var prof_option = document.getElementById("prof_option");
         var stu_option = document.getElementById("stu_option");
-        var student_button = document.getElementById("student_button");
-        choose_stu();
+        var stu_login = document.getElementById("stu_login");
+        var prof_login = document.getElementById("prof_login");
+
         function choose_stu(){
             stu_option.style.backgroundColor = "blue";
             stu_option.style.color = "white";
             prof_option.style.backgroundColor = "white";
             prof_option.style.color = "black";
 
-            student_button.style.display = "block";
-            prof_button.style.display = "none";
+            prof_login.style.display = "none";
+            stu_login.style.display = "block";
+            
         }
 
         function choose_prof(){
@@ -57,8 +62,9 @@
             stu_option.style.color = "black";
             prof_option.style.backgroundColor = "blue";
             prof_option.style.color = "white";
-            student_button.style.display = "none";
-            prof_button.style.display = "block";
+
+            stu_login.style.display = "none";
+            prof_login.style.display = "block";
 
         }
 
