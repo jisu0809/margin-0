@@ -20,14 +20,21 @@
             </div>
         </div>
         <div class= "class_list"> 
-            {% for class in prof_all_class_info %}
-            <form action="/teample_prof" method="POST" >
-            <input type="hidden" name="class_code" value="{class[1]}">
-            <button type="submit">{{ class[0] }} (class code: {{ class[1] }})</button>
-            </form>
+            {% for cls in prof_all_class_info %}
+                <form action="/teample_prof" method="POST" >
+                    <input type="hidden" name="class_code" value="{{cls[1]}}">
+                    <button type="submit">{{ cls[0] }} (class code: {{ cls[1] }})</button>
+                </form>
             {% endfor %}
         </div>
 
     </div>
+    {% with messages = get_flashed_messages() %}
+                {% if messages %}     
+                <script>
+                    alert("{{ messages[-1] }}");
+                </script>
+                {% endif %}
+    {% endwith %}
     </body>      
 </html>

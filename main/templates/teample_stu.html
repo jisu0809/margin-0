@@ -10,23 +10,23 @@
     <div class="sidebar">
         <div class="profile">
             <div class="profile-pic"></div>
-            <h3>{{ student_name }}</h3>
-            <p>ID: {{ student_id }}</p>
-            <p>전화번호: {{ student_phone }}</p>
+            <h3>{{ session['username']}}</h3>
+            <p>ID: {{ session['student_number'] }}</p>
+
         </div>
         <div class="menu">
             <button><!-- TODO: 우리팀 게시판 기능 연동 --></button>
             <button><!-- TODO: 우리팀 채팅 연동 --></button>
             <button><!-- TODO: 파일함 연동 --></button>
-            <button><!-- TODO: 로그아웃 연동 --></button>
+            <button onclick="location.href='/logout'">로그아웃</button>
             <!-- 필요시 기타 메뉴 추가 -->
         </div>
     </div>
     <div class="main-content">
-        <h2>내 팀: {{ my_team.name }}</h2>
+        <h2>내 팀: {{current_team_info['team_name']}}</h2>
         <div class="team-members">
-            {% for member in my_team.members %}
-                <span>{{ member.name }}</span>{% if not loop.last %}, {% endif %}
+            {% for member in current_team_info %}
+                <span>{{ member['username'] }}</span>{% if not loop.last %}, {% endif %}
             {% endfor %}
         </div>
 =        <div class="team-board-preview">
@@ -45,11 +45,15 @@
         </div>
     </div>
 </div>
+{% with messages = get_flashed_messages() %}
+                {% if messages %}     
+                <script>
+                    alert("{{ messages[-1] }}");
+                </script>
+                {% endif %}
+{% endwith %}
 <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
 <script>
-    // === 팀 ID와 username은 서버에서 템플릿 변수로 전달 필요 ===
-    const team_id = {{ my_team.id }};
-    const username = "{{ student_name }}";
     const socket = io();
 
     // 팀 채팅방에 입장

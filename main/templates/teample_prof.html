@@ -10,12 +10,22 @@
     <div class="sidebar">
         <div class="profile">
             <div class="profile-pic"></div>
-            <h3>{{ current_class_info[3] }}</h3>
+            <h3>{{ session['username'] }}</h3>
             <p>ID: {{session['prof_number'] }}</p>
-            <p>class code: {{current_class_info[1]}}</p>
+            <p>class code: {{session['class_code']}}</p>
         </div>
         <div class="menu">
-            <button onclick="location.href='/create_team'">팀 생성</button>
+            <button onclick="open_teample_creator()">팀 생성</button>
+            <div id= "teample_creator">
+                <form action="/create_teample" method="post">
+                    <input placeholder="number of teams" type="number" name="number_of_teams" required ><br>
+                    <input placeholder="team_size" type="number" name="team_size" required><br>
+                    <input type="radio" name="creator_method" value ="random" checked="checked" /> 팀 렌덤 생성
+                    <input type="radio" name="creator_method" value="student_choice"/> 팀 학생 선택
+                    <button type="submit">생성하기</button>
+                    <button type="button" onclick = "close_teample_creator()">닫기</button>
+            </div> 
+
             <button onclick="location.href='/vote_result'">투표 결과</button>
             <button onclick="location.href='/logout'">로그아웃</button>
             <!-- 추후: 교수자 추가 메뉴/설정 연동 -->
@@ -23,16 +33,14 @@
     </div>
     <div class="main-content">
         <h2>팀 리스트</h2>
-        {% for team in teams %}
+        {% for team in team_info %}
         <div class="team-card">
             <div class="team-header">
-                <span>{{ team.name }}</span>
-                <span>({{ team.member_count }}/{{ team.max_size }})</span>
+                <span>{{ team[team_name] }}</span>
+                <span>({{0}}/{{ team[team_size] }})</span>
             </div>
             <div class="team-members">
-                {% for member in team.members %}
-                    <span>{{ member.name }}</span>{% if not loop.last %}, {% endif %}
-                {% endfor %}
+           
             </div>
             <div class="team-actions">
                 <button onclick="location.href='/team/{{ team.id }}/board'">
@@ -51,5 +59,21 @@
         <!-- 팀이 없을 때 "아직 생성된 팀이 없습니다." 안내 메시지 등 추가 가능 -->
     </div>
 </div>
+{% with messages = get_flashed_messages() %}
+                {% if messages %}     
+                <script>
+                    alert("{{ messages[-1] }}");
+                </script>
+                {% endif %}
+{% endwith %}
+<script>
+    function open_teample_creator() {
+        document.getElementById("teample_creator").style.display = "block";
+    }
+
+    function close_teample_creator() {
+        document.getElementById("teample_creator").style.display = "None";
+    }
+</script>
 </body>
 </html>
