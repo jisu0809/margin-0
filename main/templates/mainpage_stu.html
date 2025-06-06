@@ -28,16 +28,23 @@
             </div>
         </div>
         <div class= "class_list"> 
-            <a href="http://127.0.0.1:8000/mainpage_stu"> class1 </a>
-            <a href="http://127.0.0.1:8000/mainpage_stu"> class2 </a>
-            <a href="http://127.0.0.1:8000/mainpage_stu"> class3 </a>
+            {% for class in included_class_info %}
+                <form action="/teample_stu" method="POST" >
+                    <input type="hidden" name="class_code" value="{class[1]}">
+                    <button type="submit">{{ class[0] }} (class code: {{ class[1] }})</button>
+                </form>
+            {% endfor %}
         </div>
 
     </div>
+    {% with messages = get_flashed_messages() %}
+                {% if messages %}     
+                <script>
+                    alert("{{ messages[-1] }}");
+                </script>
+                {% endif %}
+    {% endwith %}
     <script>
-        function create_team_button(){
-            alert("make");
-        }
     </script>
     </body>      
 </html>

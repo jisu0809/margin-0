@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{{ url_for('static', filename='mainpage_stu.css') }}" />
+    </head>
+    <body>
+    <div class="container">
+        <div class="sidebar">
+        <div class="profile"> 
+            <div class="profile-pic"></div>
+            <h3>{{session['username']}}</h3>
+            <p>ID: {{session['student_number']}}</p>
+            <p>Major: {{session['major']}} </p> 
+            <p>Grade: {{ session['grade']}} </p> 
+
+            <div class= "notice"> 
+                <p>notice1</p>
+                <p>notice2</p>
+                <p>notice3</p>
+            </div>
+        </div>
+
+        <div class= "class_list"> 
+           <h1>Waiting for Professor to create teams</h1>
+
+        </div>
+
+    </div>
+    <script>
+    </script>
+    </body>      
+</html>
