@@ -2,7 +2,7 @@
 
 body {
     text-align: center;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-family: 'Noto Sans KR', Arial, sans-serif;
     background-color: #f4f7f6;
     padding: 20px;
     box-sizing: border-box;
@@ -24,23 +24,28 @@ body {
 }
 
 form {
-    width: 100%;
-    max-width: 450px;
-    display: inline-block;
+    width: 380px;
     background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-    padding: 30px 40px;
-    box-sizing: border-box; 
+    border-radius: 16px;
+    box-shadow: 0 6px 24px rgba(60,80,200,0.07);
+    padding: 44px 52px 36px 52px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 90vw;      
+    min-width: 0;
+    margin: 0 auto;
 }
 
 .format {
+    
+    text-align: center;
     border: none;
     padding: 0;
 }
 
 .input {
-    width: 100%; 
+    width: 90%; 
     padding: 16px; 
     margin: 8px 0; 
     font-size: 16px;
@@ -50,7 +55,7 @@ form {
     border-radius: 6px;
     box-sizing: border-box;
     transition: border-color 0.2s, box-shadow 0.2s;
-    text-align: left; 
+    text-align: center; 
 }
 
 .input::placeholder { color: #868e96; }

@@ -1,5 +1,5 @@
 /* static/mainpage_stu.css */
-body { margin: 0; font-family: 'sans-serif'; background-color: #f8f9fa; }
+body { margin: 0; font-family: 'Noto Sans KR', Arial, sans-serif; background-color: #f8f9fa; }
 .container { display: flex; min-height: 100vh; }
 .sidebar {
     width: 300px;
