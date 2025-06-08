@@ -17,8 +17,8 @@
             </div>
             <div class= "join_team"> 
             <form action="/join_class" method="POST">    
-                <input placeholder = "class code" type="text" name= "class_code" required>
-                <button id="team_button" type="submit">join_class</button>
+                <input placeholder = "class code" type="text" name= "class_code" id="class_code" required>
+                <button id="team_button" type="submit" onsubmit="join_class_socket()">join_class</button>
             </form>
             </div>
             <div class= "notice"> 
@@ -30,7 +30,7 @@
         <div class= "class_list"> 
             {% for class in included_class_info %}
                 <form action="/teample_stu" method="POST" >
-                    <input type="hidden" name="class_code" value="{class[1]}">
+                    <input type="hidden" name="class_code" value="{{class[1]}}">
                     <button type="submit">{{ class[0] }} (class code: {{ class[1] }})</button>
                 </form>
             {% endfor %}
@@ -44,7 +44,17 @@
                 </script>
                 {% endif %}
     {% endwith %}
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    
     <script>
-    </script>
+    const socket = io();
+        // 클래스 채팅방에 입장
+        function join_class_socket()
+           {
+           const class_code = document.getElementById("class_code").value;
+           const username = "{{ session['username'] }}";
+           socket.emit('join_class_socket', {class_code: class_code, username: username});
+           }
+       </script>
     </body>      
 </html>

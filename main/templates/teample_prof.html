@@ -24,6 +24,7 @@
                     <input type="radio" name="creator_method" value="student_choice"/> 팀 학생 선택
                     <button type="submit">생성하기</button>
                     <button type="button" onclick = "close_teample_creator()">닫기</button>
+                </form>
             </div> 
 
             <button onclick="location.href='/vote_result'">투표 결과</button>
@@ -40,7 +41,10 @@
                 <span>({{0}}/{{ team[team_size] }})</span>
             </div>
             <div class="team-members">
-           
+            {% for member in team_relationship[username] if member['team_id'] == team['team_id'] %}
+            <p>{{ member['username'] }}</p>
+            {% endfor %}
+
             </div>
             <div class="team-actions">
                 <button onclick="location.href='/team/{{ team.id }}/board'">

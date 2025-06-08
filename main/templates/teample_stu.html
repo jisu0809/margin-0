@@ -24,6 +24,7 @@
     </div>
     <div class="main-content">
         <h2>내 팀: {{current_team_info['team_name']}}</h2>
+        
         <div class="team-members">
             {% for member in current_team_info %}
                 <span>{{ member['username'] }}</span>{% if not loop.last %}, {% endif %}
