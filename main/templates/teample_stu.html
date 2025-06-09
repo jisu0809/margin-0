@@ -56,6 +56,18 @@
 <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
 <script>
     const socket = io();
+<<<<<<< HEAD
+
+    // 채팅 전송 함수
+    function send_msg() {
+        const val = document.getElementById('msg').value;
+        if (val) {
+            socket.emit('chat', {team_id: team_id, msg: val, username: username});
+            document.getElementById('msg').value = '';
+        }
+    }
+=======
+>>>>>>> ea5b4d4259204445caba56795734f0c0853fbbda
 
     // 팀 채팅방에 입장
     socket.emit('join', {team_id, user: username});
