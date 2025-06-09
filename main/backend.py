@@ -172,9 +172,9 @@ def create_class_prof():
                                 (class_name, class_code, class_size, prof_id))
                 flash('성공적으로 클래스가 생성되었습니다.')
                 return redirect(url_for('teample_prof'))
-        except sqlite3.OperationalError as e:
-                flash(f"데이터베이스 오류: {e}")
-                return render_template("create_class_prof.html")
+   #    except sqlite3.OperationalError as e:
+    #           flash(f"데이터베이스 오류: {e}")
+     #          return render_template("create_class_prof.html")
         finally:
                 conn.commit()
                 conn.close()
@@ -226,16 +226,16 @@ def create_teample():
                                                 if student >= len(student_in_class):
                                                         break 
                                                 cursor.execute("INSERT INTO team_relationship (team_id, class_code, username) VALUES ( ?, ?, ?)",
-                                                        (team_id[0], class_code, student_in_class[student][0]))
-                                                cursor.execute('UPDATE team_info SET current_size = current_size + 1 WHERE team_id = ?', (team_id[0],))
+                                                        (team_id[0], class_code, student_in_class[student][0],))
                                                 student += 1
                                         if student >= len(student_in_class):
                                                 break
                                 if len(student_in_class) > student:
                                         left_students = len(student_in_class)-student
                                         flash(f"팀에 학생을 다 수용할 수 없습니다, {left_students}의 학생이 팀이 없습니다") 
-                                        cursor.execute('SELECT team_id FROM team_info WHERE class_code = ?', (class_code,))
-                        else: flash("클래스에 학생이 없습니다")   
+                                        
+                        else: flash("클래스에 학생이 없습니다")       
+                        
         except Exception as e:
                 flash(f"에러 발생: {e}")        
         finally: 
@@ -282,7 +282,6 @@ def join_class():
                                 return redirect(url_for('mainpage_stu'))
                         insert_class_relationship = "INSERT INTO class_relationship(class_code, username) VALUES (?,?)"
                         cursor.execute(insert_class_relationship,(class_code, username))
-                        cursor.execute('UPDATE class_info SET current_size = current_size + 1 WHERE class_code = ?', (class_code,))
                         session['class_code'] = class_code
                         conn.commit()
                         conn.close()
@@ -297,60 +296,31 @@ def join_class():
 @app.route('/teample_stu', methods=['GET', 'POST'])
 def teample_stu():
         if request.method == 'POST':
-                class_code = request.form['class_code']
-                session['class_code'] = class_code 
+                class_code = session.get('class_code')
                 username = session.get('username')
-                print("DEBUG | username:", username)
-                print("received class_code:", class_code)
                 conn = sqlite3.connect('teample.db')
                 conn.row_factory = sqlite3.Row
                 cursor = conn.cursor()
                 cursor.execute('SELECT * FROM team_relationship WHERE username = ? and class_code = ?', (username, class_code))
                 current_team_relationship_info = cursor.fetchall()
                 current_team_info = []
-                if current_team_relationship_info: 
-                        cursor.execute('SELECT username FROM team_relationship WHERE team_id = ?', (current_team_relationship_info[0][1],))
-                        current_team_info = cursor.fetchall()
+                if current_team_relationship_info:
+                        for _ in range(len(current_team_relationship_info)):
+                                cursor.execute('SELECT * FROM team_relationship WHERE team_id = ?', (current_team_relationship_info[0][1],))
+                                current_team_info.append(cursor.fetchall())
                         conn.commit()
                         conn.close() 
                         return render_template("teample_stu.html", current_team_info = current_team_info, session = session, current_team_relationship_info = current_team_relationship_info)
-                else: 
-                        flash("팀에 포함되어 있지 않습니다")
-                        return redirect(url_for('waiting_for_teample'))
+                return redirect(url_for('waiting_for_teample'))
+
         else: 
                 return redirect(url_for('waiting_for_teample'))
-                
 
 @app.route('/waiting_for_teample', methods=['GET', 'POST'])
 def waiting_for_teample():
-        class_code = session.get('class_code')
-        conn = sqlite3.connect('teample.db')
-        conn.row_factory = sqlite3.Row
-        cursor = conn.cursor()
-        cursor.execute('SELECT * FROM class_info WHERE class_code = ?', (class_code,))
-        current_class_info = cursor.fetchall()
-        cursor.execute('SELECT * FROM team_info WHERE class_code = ?', (class_code,))
-        team_info = cursor.fetchall()
-        cursor.execute('SELECT * FROM team_relationship WHERE class_code = ?', (class_code,))
-        team_relationship = cursor.fetchall()
-        conn.close()
-        return render_template("waiting_for_teample.html", current_class_info = current_class_info, session = session, team_info = team_info, team_relationship = team_relationship)
+       return render_template('waiting_for_teample.html')
+        
 
-# === 학생이 class 들어갈때 룸 추가===
-@socketio.on('join_class_socket')
-def on_join_class_socket(data):
-    class_code = data['class_code']
-    username = data['username']
-    join_room(class_code)
-    emit('chat', {'msg': f"{username}님이 입장했습니다.", 'user': 'system'}, room=class_code)
-
-# === 학생이 team 들어갈때 룸 추가===
-@socketio.on('join_team_socket')
-def on_join_team_socket(data):
-    team_id = data['team_id']
-    username = data['username']
-    join_room(team_id)
-    emit('chat', {'msg': f"{username}님이 입장했습니다.", 'user': 'system'}, room=team_id)
 
 # 파일 업로드
 @app.route('/upload/<int:team_id>', methods=['POST'])
@@ -387,6 +357,7 @@ def on_chat(data):
 
 
 if __name__ == '__main__':
+        app.run( port="8000", debug=True)
         if not os.path.exists(app.config['UPLOAD_FOLDER']):
                 os.makedirs(app.config['UPLOAD_FOLDER'])
-        socketio.run(app, port=8000, debug=True)
+                socketio.run(app, port=8000, debug=True)
