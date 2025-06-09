@@ -1,60 +1,103 @@
 /* static/mainpage_prof.css */
-body { margin: 0; font-family: 'Noto Sans KR', Arial, sans-serif; background-color: #f8f9fa; }
+:root {
+    --primary: #6a5acd; /* 메인 블루/퍼플 계열 색상 */
+    --primary-dark: #5d4eb4;
+    --white: #ffffff;
+    --text-light: #f0f0f0;
+    --text-muted: #d1d5db;
+    --bg-light: #f9fafb;
+    --border-color: #e5e7eb;
+    --font-family: 'Noto Sans KR', sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { 
+    font-family: var(--font-family);
+    background-color: var(--bg-light);
+}
+
 .container { display: flex; min-height: 100vh; }
+
+/* 사이드바 */
 .sidebar {
-    width: 300px;
-    background-color: #ffffff;
-    padding: 30px;
-    border-right: 1px solid #e9ecef;
+    width: 280px;
+    background: var(--primary); /* 사이드바 배경을 블루 테마로 변경 */
+    padding: 32px 24px;
     display: flex;
     flex-direction: column;
-    flex-shrink: 0; /* 너비가 줄어들지 않도록 설정 */
+    flex-shrink: 0;
 }
-.profile { text-align: center; margin-bottom: 35px; }
-.profile-pic { width: 100px; height: 100px; background-color: #e9ecef; border-radius: 50%; margin: 0 auto 15px; }
-.profile h3 { margin: 10px 0 5px; color: #343a40; }
-.profile p { margin: 4px 0; font-size: 14px; color: #868e96; }
-.create_team, #create_class_button {
-    width: 100%;
-    padding: 15px;
-    font-size: 16px;
-    font-weight: bold;
-    color: #ffffff;
-    background-color: #667eea;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
-}
-.create_team:hover, #create_class_button:hover { background-color: #5a6ed0; transform: translateY(-2px); }
-.class_list { flex: 1; padding: 40px; display: flex; flex-direction: column; gap: 20px; }
-.class_list a {
-    display: block;
-    padding: 25px;
-    background-color: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
-    text-decoration: none;
-    color: #495057;
-    font-size: 1.1rem;
-    font-weight: 600;
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-.class_list a:hover { transform: translateY(-5px); box-shadow: 0 8px 24px rgba(102, 126, 234, 0.15); color: #667eea; }
 
-/* --- 반응형 디자인을 위한 미디어 쿼리 --- */
+.profile { text-align: center; margin-bottom: 32px; }
+.profile-pic { 
+    width: 80px; height: 80px; 
+    background: var(--white);
+    border-radius: 50%; 
+    margin: 0 auto 16px;
+    border: 3px solid var(--primary-dark);
+}
+.profile h3 { margin: 12px 0 8px; color: var(--white); }
+.profile p { margin: 4px 0; font-size: 13px; color: var(--text-muted); }
+
+/* 수업 개설 버튼 */
+.create-class-section { margin-bottom: 24px; }
+#create_class_button {
+    width: 100%; padding: 14px 20px;
+    font-size: 15px; font-weight: 600;
+    color: var(--primary);
+    background: var(--white);
+    border: none; border-radius: 12px;
+    cursor: pointer; transition: all 0.3s ease;
+}
+#create_class_button:hover { 
+    background: var(--text-light);
+    transform: translateY(-2px); 
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* 공지사항 */
+.notice {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 24px 20px;
+    margin-top: auto;
+    border-radius: 16px;
+}
+.notice h4 { color: var(--white); margin-bottom: 12px; }
+.notice p { color: var(--text-light); font-size: 13px; line-height: 1.5; }
+
+/* 메인 콘텐츠 */
+.main-content { flex: 1; padding: 40px; }
+.page-header { margin-bottom: 40px; }
+.page-header h1 { font-size: 2.5rem; font-weight: 700; }
+.page-header p { font-size: 1.1rem; color: #6b7280; }
+
+.class-grid {
+    display: grid;
+    gap: 24px;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+}
+.class-grid form button {
+    width: 100%; padding: 28px;
+    background: var(--white); border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
+    border: 1px solid var(--border-color);
+    cursor: pointer; text-align: left;
+    transition: all 0.3s ease;
+}
+.class-grid form button:hover {
+    transform: translateY(-4px); 
+    box-shadow: 0 12px 25px rgba(106, 90, 205, 0.15); 
+    border-color: var(--primary);
+}
+.class-info h3 { font-size: 1.3rem; margin-bottom: 12px; }
+.class-details p { font-size: 14px; color: #6b7280; margin: 4px 0; }
+
+/* 수업 없을 때 */
+.empty-state { text-align: center; padding: 60px 40px; }
+.empty-state h3 { font-size: 1.5rem; margin-bottom: 12px; }
+
 @media screen and (max-width: 768px) {
-    .container {
-        flex-direction: column; /* 세로 정렬로 변경 */
-        height: auto;
-    }
-    .sidebar {
-        width: 100%;
-        box-sizing: border-box;
-        border-right: none;
-        border-bottom: 1px solid #e9ecef; /* 하단 경계선 추가 */
-    }
-    .class_list {
-        padding: 20px;
-    }
+    .container { flex-direction: column; }
+    .sidebar { width: 100%; }
 }

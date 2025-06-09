@@ -1,40 +1,67 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="{{ url_for('static', filename='mainpage_prof.css') }}" />
-    </head>
-    <body>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>교수자 대시보드</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='mainpage_prof.css') }}" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
     <div class="container">
         <div class="sidebar">
-        <div class="profile"> 
-            <div class="profile-pic"></div>
-            <h3>{{session['username']}}</h3>
-            <p>ID: {{session['prof_number']}}</p>
-            <p>Major: {{session['major']}} </p> 
-        </div>
-            <div class= "create_class"> 
-            <form action="/move_to_create_class" method="POST">    
-                <button id="create_class_button" type="submit">create class</button>
-            </form>
+            <div class="profile">
+                <div class="profile-pic"></div>
+                <h3>{{session['username']}}</h3>
+                <p>교수번호: {{session['prof_number']}}</p>
+                <p>전공: {{session['major']}}</p>
+            </div>
+            
+            <div class="create-class-section">
+                <form action="/move_to_create_class" method="GET">
+                    <button id="create_class_button" type="submit">
+                        새로운 수업 개설
+                    </button>
+                </form>
+            </div>
+            
+            <div class="notice">
+                <h4>교수님 공지사항</h4>
+                <p>2025년 1학기 강의평가 기간입니다.</p>
+                <p>새로운 팀 관리 기능이 추가되었습니다.</p>
             </div>
         </div>
-        <div class= "class_list"> 
-            {% for cls in prof_all_class_info %}
-                <form action="/teample_prof" method="POST" >
-                    <input type="hidden" name="class_code" value="{{cls[1]}}">
-                    <button type="submit">{{ cls[0] }} (class code: {{ cls[1] }})</button>
-                </form>
-            {% endfor %}
-        </div>
 
-    </div>
-    {% with messages = get_flashed_messages() %}
-                {% if messages %}     
-                <script>
-                    alert("{{ messages[-1] }}");
-                </script>
+        <div class="main-content">
+            <div class="page-header">
+                <h1>교수자 대시보드</h1>
+                <p>수업을 관리하고 학생들의 팀 프로젝트 진행 상황을 확인하세요.</p>
+            </div>
+            
+            <div class="class-grid">
+                {% if prof_all_class_info %}
+                    {% for cls in prof_all_class_info %}
+                        <form action="/teample_prof" method="POST">
+                            <input type="hidden" name="class_code" value="{{cls[1]}}">
+                            <button type="submit">
+                                <div class="class-info">
+                                    <h3>{{ cls[0] }}</h3>
+                                    <div class="class-details">
+                                        <p>수업 코드: {{ cls[1] }}</p>
+                                        <p>수강 인원: {{ cls[3] if cls[3] is not none else 0 }} / {{ cls[2] }}명</p>
+                                    </div>
+                                </div>
+                            </button>
+                        </form>
+                    {% endfor %}
+                {% else %}
+                    <div class="empty-state">
+                        <h3>아직 개설한 수업이 없습니다</h3>
+                        <p>왼쪽 사이드바에서 '새로운 수업 개설' 버튼을 클릭하여 첫 수업을 만들어보세요!</p>
+                    </div>
                 {% endif %}
-    {% endwith %}
-    </body>      
+            </div>
+        </div>
+    </div>
+</body>
 </html>
