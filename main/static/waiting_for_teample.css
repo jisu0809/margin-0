@@ -1,0 +1,336 @@
+/* static/waiting_for_teample.css */
+
+:root {
+    --primary: #6366f1;
+    --primary-dark: #4f46e5;
+    --secondary: #f59e0b;
+    --success: #10b981;
+    --danger: #ef4444;
+    --warning: #f59e0b;
+    --dark: #111827;
+    --gray-50: #fafafa;
+    --gray-100: #f5f5f5;
+    --gray-200: #e5e5e5;
+    --gray-300: #d4d4d8;
+    --gray-400: #a1a1aa;
+    --gray-500: #71717a;
+    --gray-600: #52525b;
+    --gray-700: #374151;
+    --gray-800: #1f2937;
+    --gray-900: #111827;
+    --white: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body { 
+    font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--gray-50);
+    color: var(--gray-900);
+}
+
+.container { 
+    display: flex; 
+    min-height: 100vh; 
+}
+
+/* 사이드바 */
+.sidebar {
+    width: 300px;
+    background: var(--dark);
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.sidebar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 1px;
+    height: 100%;
+    background: linear-gradient(180deg, transparent, var(--gray-600), transparent);
+}
+
+.profile { 
+    text-align: center; 
+    margin-bottom: 35px;
+    padding: 24px 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.profile-pic { 
+    width: 100px; 
+    height: 100px; 
+    background: linear-gradient(135deg, var(--success), var(--primary));
+    border-radius: 50%; 
+    margin: 0 auto 15px;
+    border: 4px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    color: var(--white);
+    font-weight: 600;
+    box-shadow: 0 8px 32px rgba(16, 185, 129, 0.3);
+}
+
+.profile-pic::before {
+    content: '👨‍🎓';
+    filter: grayscale(1) brightness(0) invert(1);
+}
+
+.profile h3 { 
+    margin: 10px 0 5px; 
+    color: var(--white); 
+    font-weight: 600;
+    font-size: 1.3rem;
+}
+
+.profile p { 
+    margin: 4px 0; 
+    font-size: 14px; 
+    color: rgba(255, 255, 255, 0.8); 
+}
+
+.notice {
+    width: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 20px;
+    margin-top: auto;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.notice p {
+    margin: 8px 0;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--gray-300);
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    border-left: 3px solid var(--warning);
+}
+
+/* 메인 콘텐츠 영역 - 대기 메시지 */
+#message {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--gray-900);
+    background: var(--white);
+    margin: 40px;
+    border-radius: 24px;
+    box-shadow: 0 20px 50px rgba(17, 24, 39, 0.08);
+    border: 1px solid var(--gray-200);
+    position: relative;
+    overflow: hidden;
+    padding: 60px 40px;
+}
+
+#message::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--warning), var(--secondary));
+}
+
+#message::after {
+    content: '⏳';
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 2rem;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.1); opacity: 0.7; }
+}
+
+/* 팀 선택 영역 */
+.class_list {
+    flex: 1;
+    padding: 40px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 24px;
+    align-content: start;
+}
+
+.team-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 32px 28px;
+    box-shadow: 0 8px 32px rgba(17, 24, 39, 0.08);
+    border: 2px solid var(--gray-200);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.team-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--success), var(--primary));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.team-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 50px rgba(17, 24, 39, 0.12);
+    border-color: var(--primary);
+}
+
+.team-card:hover::before {
+    transform: scaleX(1);
+}
+
+.team-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: var(--primary);
+}
+
+.team-members {
+    margin-bottom: 24px;
+    min-height: 60px;
+    font-size: 1rem;
+    color: var(--gray-600);
+    line-height: 1.7;
+}
+
+.team-members p {
+    margin: 4px 0;
+    padding: 4px 8px;
+    background: var(--gray-100);
+    border-radius: 6px;
+    display: inline-block;
+    margin-right: 8px;
+    font-size: 0.9rem;
+}
+
+/* 팀 선택 버튼 */
+.team-card form {
+    width: 100%;
+}
+
+#team_button {
+    width: 100%;
+    padding: 16px 24px;
+    background: var(--primary);
+    color: var(--white);
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+#team_button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.6s ease;
+}
+
+#team_button:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(99, 102, 241, 0.4);
+}
+
+#team_button:hover::before {
+    left: 100%;
+}
+
+/* 반응형 디자인 */
+@media screen and (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+    
+    .sidebar {
+        width: 100%;
+        box-sizing: border-box;
+        border-bottom: 1px solid var(--gray-200);
+    }
+    
+    #message {
+        margin: 20px;
+        padding: 40px 24px;
+        font-size: 1.5rem;
+    }
+    
+    .class_list {
+        padding: 20px;
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .team-card {
+        padding: 24px 20px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .profile {
+        padding: 20px 16px;
+    }
+    
+    .profile-pic {
+        width: 80px;
+        height: 80px;
+        font-size: 32px;
+    }
+    
+    #message {
+        margin: 16px;
+        padding: 32px 20px;
+        font-size: 1.3rem;
+    }
+    
+    .team-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+}

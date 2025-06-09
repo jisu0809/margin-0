@@ -1,60 +1,172 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="{{ url_for('static', filename='mainpage_stu.css') }}" />
-    </head>
-    <body>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TeamHub - 학생 대시보드</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='mainpage_stu.css') }}" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
     <div class="container">
+        <!-- 사이드바 -->
         <div class="sidebar">
-        <div class="profile"> 
-            <div class="profile-pic"></div>
-            <h3>{{session['username']}}</h3>
-            <p>ID: {{session['student_number']}}</p>
-            <p>Major: {{session['major']}} </p> 
-            <p>Grade: {{ session['grade']}} </p> 
-
+            <div class="profile"> 
+                <div class="profile-pic"></div>
+                <h3>{{session['username']}}</h3>
+                <p>학번: {{session['student_number']}}</p>
+                <p>전공: {{session['major']}}</p> 
+                <p>학년: {{ session['grade']}}학년</p> 
             </div>
-            <div class= "join_team"> 
-            <form action="/join_class" method="POST">    
-                <input placeholder = "class code" type="text" name= "class_code" id="class_code" required>
-                <button id="team_button" type="submit" onsubmit="join_class_socket()">join_class</button>
-            </form>
-            </div>
-            <div class= "notice"> 
-                <p>notice1</p>
-                <p>notice2</p>
-                <p>notice3</p>
-            </div>
-        </div>
-        <div class= "class_list"> 
-            {% for class in included_class_info %}
-                <form action="/teample_stu" method="POST" >
-                    <input type="hidden" name="class_code" value="{{class[1]}}">
-                    <button type="submit">{{ class[0] }} (class code: {{ class[1] }})</button>
+            
+            <div class="join_team"> 
+                <form action="/join_class" method="POST">    
+                    <input placeholder="수업 코드를 입력하세요" type="text" name="class_code" id="class_code" required>
+                    <button id="team_button" type="submit" onsubmit="join_class_socket()">
+                        🚀 수업 참여하기
+                    </button>
                 </form>
-            {% endfor %}
+            </div>
+            
+            <div class="notice"> 
+                <h4>공지사항</h4>
+                <p>💡 팀 프로젝트 가이드라인이 업데이트되었습니다</p>
+                <p>📅 중간발표 일정을 확인해주세요</p>
+                <p>⏰ 과제 제출 마감일이 임박했습니다</p>
+            </div>
         </div>
 
-    </div>
-    {% with messages = get_flashed_messages() %}
-                {% if messages %}     
-                <script>
-                    alert("{{ messages[-1] }}");
-                </script>
+        <!-- 메인 콘텐츠 -->
+        <div class="class_list"> 
+            <!-- 페이지 헤더 -->
+            <div class="page-header">
+                <h1>참여 중인 수업</h1>
+                <p>수업에서 팀을 이루고 프로젝트를 함께 진행하세요</p>
+            </div>
+            
+            <!-- 수업 목록 -->
+            <div class="class-grid">
+                {% if included_class_info %}
+                    {% for class in included_class_info %}
+                        <form action="/teample_stu" method="POST">
+                            <input type="hidden" name="class_code" value="{{class[1]}}">
+                            <button type="submit">
+                                <div class="class-info">
+                                    <h3>{{ class[0] }}</h3>
+                                    <div class="class-details">
+                                        <p>🔑 수업 코드: {{ class[1] }}</p>
+                                        <p>👨‍🏫 담당교수: {{ class[2] if class[2] else '교수님' }}</p>
+                                        <p>📅 참여일: {{ class[3] if class[3] else '2024-03-01' }}</p>
+                                        <p>🎯 내 팀: {{ class[4] if class[4] else '미배정' }}</p>
+                                    </div>
+                                </div>
+                            </button>
+                        </form>
+                    {% endfor %}
+                {% else %}
+                    <div class="empty-state">
+                        <h3>아직 참여한 수업이 없습니다</h3>
+                        <p>교수님께서 제공한 수업 코드로 수업에 참여해보세요!</p>
+                        
+                        <div class="help-text">
+                            <h4>📚 수업 참여 방법</h4>
+                            <ol>
+                                <li>교수님으로부터 수업 코드를 받으세요</li>
+                                <li>왼쪽 사이드바의 입력창에 코드를 입력하세요</li>
+                                <li>'수업 참여하기' 버튼을 클릭하세요</li>
+                                <li>수업에 성공적으로 참여하면 여기에 표시됩니다</li>
+                            </ol>
+                        </div>
+                    </div>
                 {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- 플래시 메시지 -->
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}     
+        <script>
+            const message = "{{ messages[-1] }}";
+            const isError = message.includes('오류') || message.includes('실패') || message.includes('없습니다');
+            
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${isError ? '#ef4444' : '#10b981'};
+                color: white;
+                padding: 16px 24px;
+                border-radius: 12px;
+                box-shadow: 0 8px 32px ${isError ? 'rgba(239, 68, 68, 0.3)' : 'rgba(16, 185, 129, 0.3)'};
+                z-index: 1000;
+                font-weight: 600;
+                animation: slideIn 0.3s ease;
+                max-width: 400px;
+            `;
+            
+            notification.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <span>${isError ? '❌' : '✅'}</span>
+                    <span>${message}</span>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 4000);
+        </script>
+        <style>
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+            
+            .class-info h3 {
+                font-size: 1.3rem;
+                font-weight: 600;
+                color: var(--gray-900);
+                margin-bottom: 16px;
+            }
+            
+            .class-details p {
+                font-size: 14px;
+                color: var(--gray-500);
+                margin: 6px 0;
+                text-align: left;
+            }
+        </style>
+        {% endif %}
     {% endwith %}
+
+    <!-- 소켓 통신 -->
     <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
-    
     <script>
-    const socket = io();
+        const socket = io();
+        
         // 클래스 채팅방에 입장
-        function join_class_socket()
-           {
-           const class_code = document.getElementById("class_code").value;
-           const username = "{{ session['username'] }}";
-           socket.emit('join_class_socket', {class_code: class_code, username: username});
-           }
-       </script>
-    </body>      
+        function join_class_socket() {
+            const class_code = document.getElementById("class_code").value;
+            const username = "{{ session['username'] }}";
+            socket.emit('join_class_socket', {class_code: class_code, username: username});
+        }
+
+        // 연결 상태 표시
+        socket.on('connect', () => {
+            console.log('🟢 서버에 연결되었습니다');
+        });
+
+        socket.on('disconnect', () => {
+            console.log('🔴 서버 연결이 끊어졌습니다');
+        });
+    </script>
+</body>      
 </html>
