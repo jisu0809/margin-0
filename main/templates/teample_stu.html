@@ -66,6 +66,10 @@
 {% endwith %}
 <script src="https://cdn.socket.io/4.5.4/socket.io.min.js?v=2"></script>
 <script>
+    const socket = io();
+    const team_id = "{{team_id}}";
+    const username = "{{session['username']}}"
+    
     // 채팅 전송 함수
     function send_msg() {
         const val = document.getElementById('msg').value;
@@ -75,7 +79,6 @@
         }
     }
 
-    const socket = io();
 
     // 팀 채팅방에 입장
     socket.emit('join_team_socket', {team_id: team_id , username: username});

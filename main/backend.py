@@ -335,6 +335,38 @@ def waiting_for_teample():
         conn.close()
         return render_template("waiting_for_teample.html", current_class_info = current_class_info, session = session, team_info = team_info, team_relationship = team_relationship)
 
+@app.route('/join_team', methods=['GET', 'POST'])
+def join_team():
+        if request.method == 'POST':
+                username = session.get('username')
+                class_code = session.get('class_code')
+                team_id = request.form['team_id']
+                conn = sqlite3.connect('teample.db')
+                cursor = conn.cursor()
+                cursor.execute("INSERT INTO team_relationship(class_code, username, team_id) VALUES (?,?,?)",(class_code, username, team_id))
+                cursor.execute('UPDATE team_info SET current_size = current_size + 1 WHERE team_id = ?', (team_id,))
+                conn.commit()
+                conn.close()
+                return redirect(url_for('teample_stu'))
+        return redirect(url_for('teample_stu'))
+
+
+
+# === 학생이 class 들어갈때 룸 추가===
+@socketio.on('join_class_socket')
+def on_join_class_socket(data):
+    class_code = data['class_code']
+    username = data['username']
+    join_room(class_code)
+    emit('chat', {'msg': f"{username}님이 입장했습니다.", 'user': 'system'}, room=class_code)
+
+# === 학생이 team 들어갈때 룸 추가===
+@socketio.on('join_team_socket')
+def on_join_team_socket(data):
+    team_id = data['team_id']
+    username = data['username']
+    join_room(team_id)
+    emit('chat', {'msg': f"{username}님이 입장했습니다.", 'user': 'system'}, room=team_id)
 # === 학생이 class 들어갈때 룸 추가===
 @socketio.on('join_class_socket')
 def on_join_class_socket(data):

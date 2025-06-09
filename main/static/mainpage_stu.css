@@ -54,6 +54,7 @@ body {
     background: var(--white);
     border: none; border-radius: 12px;
     cursor: pointer; transition: all 0.3s ease;
+    
 }
 .join_team button:hover { 
     background: var(--text-light);
@@ -62,15 +63,23 @@ body {
 }
 
 /* 공지사항 */
-.notice {
-    width: 100%;
-    background: rgba(255, 255, 255, 0.1);
-    padding: 24px 20px;
+
+
+.logout button {
     margin-top: auto;
-    border-radius: 16px;
+    width: 100%; padding: 14px 20px;
+    font-size: 15px; font-weight: 600;
+    color: var(--primary);
+    background: var(--white);
+    border: none; border-radius: 12px;
+    cursor: pointer; transition: all 0.3s ease;
+    
 }
-.notice h4 { color: var(--white); margin-bottom: 12px; }
-.notice p { color: var(--text-light); font-size: 13px; line-height: 1.5; }
+.logout button:hover { 
+    background: var(--text-light);
+    transform: translateY(-2px); 
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
 
 /* 메인 콘텐츠 */
 .main-content { flex: 1; padding: 40px; }
