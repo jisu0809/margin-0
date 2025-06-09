@@ -18,8 +18,6 @@
                 <p>학년: {{ session['grade']}}학년</p>
             </div>
 
-<<<<<<< HEAD
-            </div>
             <div class= "join_team"> 
             <form action="/join_class" method="POST">    
                 <input placeholder = "class code" type="text" name= "class_code" id="class_code" required>
@@ -30,30 +28,21 @@
             <div class= "notice"> 
             
             </div>
-        </div>
+        
         <div class= "class_list"> 
             {% for class in included_class_info %}
                 <form action="/teample_stu" method="POST" >
                     <input type="hidden" name="class_code" value="{{class[1]}}">
                     <button type="submit">{{ class[0] }} (class code: {{ class[1] }})</button>
-=======
-            <div class="join_team">
-                <form action="/join_class" method="POST">
-                    <input placeholder="수업 코드를 입력하세요" type="text" name="class_code" id="class_code" required>
-                    <button id="team_button" type="submit">
-                        수업 참여하기
-                    </button>
->>>>>>> 4552f13efbddb26803be824c5bf71382342270b0
                 </form>
             </div>
-
+            {% endfor %}
             <div class="notice">
                 <h4>공지사항</h4>
                 <p>팀 프로젝트 가이드라인이 업데이트되었습니다.</p>
                 <p>중간발표 일정을 확인해주세요.</p>
             </div>
         </div>
-
         <div class="main-content">
             <div class="page-header">
                 <h1>학생 대시보드</h1>
