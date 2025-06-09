@@ -1,73 +1,47 @@
 <!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TeamHub - 팀 대기</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='waiting_for_teample.css') }}" />
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-</head>
-<body>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{{ url_for('static', filename='teample_stu.css') }}" />
+    </head>
+    <body>
     <div class="container">
         <div class="sidebar">
-            <div class="profile"> 
-                <div class="profile-pic"></div>
-                <h3>{{session['username']}}</h3>
-                <p>학번: {{session['student_number']}}</p>
-                <p>전공: {{session['major']}}</p> 
-                <p>학년: {{ session['grade']}}학년</p> 
-            </div>
-            <a href="{{ url_for('mainpage_stu') }}" class="back-button">&larr; 대시보드로 돌아가기</a>
-        </div>
+        <div class="profile"> 
+            <div class="profile-pic"></div>
+            <h3>{{session['username']}}</h3>
+            <p>ID: {{session['student_number']}}</p>
+            <p>Major: {{session['major']}} </p> 
+            <p>Grade: {{ session['grade']}} </p> 
 
-        <div class="main-content">
-            <div id="message" class="waiting-box">
-                <h1>교수님이 팀을 구성하고 있습니다</h1>
-                <p>팀 구성이 완료될 때까지 잠시만 기다려주세요.<br>
-                   팀이 생성되면 이 화면에서 바로 팀을 선택할 수 있습니다.</p>
-                <div class="loading-dots">
-                    <span></span><span></span><span></span>
-                </div>
-            </div>
-
-            <div id="choose_team" style="display: none;">
-                <div class="page-header">
-                    <h2>팀을 선택하세요</h2>
-                    <p>원하는 팀에 참여하여 프로젝트를 시작하세요.</p>
-                </div>
-                <div class="team-grid">
-                    {% for team in team_info %}
-                    <div class="team-card">
-                        <div class="team-header">
-                            <h3>{{ team.team_name if team.team_name else '팀 ' + team.team_id|string }}</h3>
-                            <span class="team-capacity">{{ team.current_size|default(0) }}/{{ team.team_size }}</span>
-                        </div>
-                        <div class="team-members">
-                            <h4>현재 팀원</h4>
-                            <div class="members-list">
-                            {% set has_members = false %}
-                            {% for member in team_relationship %}
-                                {% if member.team_id == team.team_id %}
-                                    <span class="member-tag">{{ member.username }}</span>
-                                    {% set has_members = true %}
-                                {% endif %}
-                            {% endfor %}
-                            {% if not has_members %}
-                                <p class="no-members">아직 팀원이 없습니다</p>
-                            {% endif %}
-                            </div>
-                        </div>
-                        <form action="/join_team" method="POST" onsubmit="join_team_socket('{{ team.team_id }}')"> 
-                            <input type="hidden" name="team_id" value="{{ team.team_id }}">   
-                            <button type="submit" class="join-btn">이 팀 선택하기</button>
-                        </form>
-                    </div>
-                    {% endfor %}
-                </div>
+            <div class= "notice"> 
+                <p>notice1</p>
+                <p>notice2</p>
+                <p>notice3</p>
             </div>
         </div>
+        <h1 id="message">Waiting for Professor to create teams</h1>
+        <div class= "class_list"  id= "choose_team" style = "display:none;"> 
+            {% for team in team_info %}
+            <div class="team-card">
+                <div class="team-header">
+                    <span>{{ team[team_name] }}</span>
+                    <span>({{0}}/{{ team[team_size] }})</span>
+                </div>
+                <div class="team-members">
+                {% for member in team_relationship[username] if member['team_id'] == team['team_id'] %}
+                <p>{{ member['username'] }}</p>
+                {% endfor %}
+                <form action="/join_team" method="POST" onsubmit="join_team_socket('{{ team[2] }}')"> 
+                    <input type="hidden" id="team_id_{{ team['team_id'] }}" name="team_id" value="{{ team['team_id'] }}">   
+                    <button id="team_button" type="submit">팀 선택</button>
+                </form>
+            </div>
+            {% endfor %}
+
+        </div>
+
     </div>
-    
     {% with messages = get_flashed_messages() %}
                 {% if messages %}     
                 <script>

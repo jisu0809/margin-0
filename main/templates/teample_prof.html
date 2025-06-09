@@ -24,6 +24,7 @@
                     <input type="radio" name="creator_method" value="student_choice"/> 팀 학생 선택
                     <button type="submit">생성하기</button>
                     <button type="button" onclick = "close_teample_creator()">닫기</button>
+                </form>
             </div> 
 
             <button onclick="location.href='/vote_result'">투표 결과</button>
@@ -37,7 +38,7 @@
         <div class="team-card">
             <div class="team-header">
                 <span>{{ team[team_name] }}</span>
-                <span>({{team[current_size]}}/{{ team[team_size] }})</span>
+                <span>({{0}}/{{ team[team_size] }})</span>
             </div>
             <div class="team-members">
             {% for member in team_relationship[username] if member['team_id'] == team['team_id'] %}
@@ -69,7 +70,6 @@
                 </script>
                 {% endif %}
 {% endwith %}
-<script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
 <script>
     function open_teample_creator() {
         document.getElementById("teample_creator").style.display = "block";
@@ -78,10 +78,6 @@
     function close_teample_creator() {
         document.getElementById("teample_creator").style.display = "None";
     }
-    //자동 업데이트 
-    const socket = io();
-    socket.on("team_update", function() {
-        location.reload(); })
 </script>
 </body>
 </html>
