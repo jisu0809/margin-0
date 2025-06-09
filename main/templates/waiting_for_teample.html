@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="{{ url_for('static', filename='teample_stu.css') }}" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='teample_prof.css') }}" />
     </head>
-    <body>
+    <body {% if team_info %}onload="choose_team()"{% endif %}> </body>
     <div class="container">
         <div class="sidebar">
         <div class="profile"> 
@@ -20,8 +20,9 @@
                 <p>notice3</p>
             </div>
         </div>
+        <div class="main-content">
         <h1 id="message">Waiting for Professor to create teams</h1>
-        <div class= "class_list"  id= "choose_team" style = "display:none;"> 
+        <div class= "class_list"  id= "choose_team" > 
             {% for team in team_info %}
             <div class="team-card">
                 <div class="team-header">
@@ -40,6 +41,7 @@
             {% endfor %}
 
         </div>
+        </div>
 
     </div>
     {% with messages = get_flashed_messages() %}
@@ -52,17 +54,10 @@
     <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
     <script>
     const socket = io();
-    socket.on('connect', () => {
-    console.log('socket connected:', socket.id);
-    });
 
-
-    socket.on('creator_method', function(data) {
-        console.log('Received creator_method:', data.msg);
-        document.getElementById('choose_team').style.display = 'block';
+    function choose_team() {
         document.getElementById('message').innerHTML = 'choose Team';
-
-    });
+        }
     
     function join_team_socket(teamId)
            {
