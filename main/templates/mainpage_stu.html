@@ -1,21 +1,19 @@
 <!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>학생 대시보드</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='mainpage_stu.css') }}" />
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-</head>
-<body>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{{ url_for('static', filename='mainpage_stu.css') }}" />
+    </head>
+    <body>
     <div class="container">
         <div class="sidebar">
-            <div class="profile">
-                <div class="profile-pic"></div>
-                <h3>{{session['username']}}</h3>
-                <p>학번: {{session['student_number']}}</p>
-                <p>전공: {{session['major']}}</p>
-                <p>학년: {{ session['grade']}}학년</p>
+        <div class="profile"> 
+            <div class="profile-pic"></div>
+            <h3>{{session['username']}}</h3>
+            <p>ID: {{session['student_number']}}</p>
+            <p>Major: {{session['major']}} </p> 
+            <p>Grade: {{ session['grade']}} </p> 
+
             </div>
 
 
@@ -61,6 +59,26 @@
                 {% endif %}
             </div>
         </div>
+
     </div>
-</body>
+    {% with messages = get_flashed_messages() %}
+                {% if messages %}     
+                <script>
+                    alert("{{ messages[-1] }}");
+                </script>
+                {% endif %}
+    {% endwith %}
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    
+    <script>
+    const socket = io();
+        // 클래스 채팅방에 입장
+        function join_class_socket()
+           {
+           const class_code = document.getElementById("class_code").value;
+           const username = "{{ session['username'] }}";
+           socket.emit('join_class_socket', {class_code: class_code, username: username});
+           }
+       </script>
+    </body>      
 </html>

@@ -29,7 +29,8 @@ def save_logged_in_user():
 
 @app.route('/')
 def index():
-        return redirect(url_for('signup'))
+        # 시작 페이지를 signup이 아닌 index.html로 변경
+        return render_template('index.html')
 
 @app.route('/signup', methods = ['GET','POST'])
 def signup():
