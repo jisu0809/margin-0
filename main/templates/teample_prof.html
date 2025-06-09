@@ -25,13 +25,23 @@
                     <button type="submit">생성하기</button>
                     <button type="button" onclick = "close_teample_creator()">닫기</button>
             </div> 
-
-            <button onclick="location.href='/vote_result'">투표 결과</button>
             <button onclick="location.href='/logout'">로그아웃</button>
-            <!-- 추후: 교수자 추가 메뉴/설정 연동 -->
+        </div>
+        <div id="report">
+            <div id="chat-section" style="margin-top:32px;">
+                <h3>게시판</h3>
+                <div id="chat" style="border:1px solid #ccc; height:200px; overflow-y:scroll; padding:10px; background:#fff;"></div>
+                <input id="msg_romm_id" autocomplete="off" placeholder="팀 ID 입력/ 공란시 클래스 전체 메시지" style="width:60%;">
+                <input id="msg" autocomplete="off" placeholder="메시지 입력" style="width:60%;">
+                <button onclick= "send_msg()" >게시</button>
+                <form id="fileForm" enctype="multipart/form-data" style="margin-top:10px;">
+                    <input type="file" id="file" name="file">
+                    <button type="submit">파일올리기</button>
+                </form>
+            </div>
         </div>
     </div>
-    <div class="main-content">
+    <div class="main-content" placeholder="아직 생성된 팀이 없습니다.">
         <h2>팀 리스트</h2>
         {% for team in team_info %}
         <div class="team-card">
@@ -56,10 +66,8 @@
                     파일 <!-- 팀별 파일 업로드/다운로드 연동 필요 -->
                 </button>
             </div>
-            <!--추후 팀 상세 설정, 팀원 관리, 강제 이동 등 기능 확장 가능 -->
         </div>
         {% endfor %}
-        <!-- 팀이 없을 때 "아직 생성된 팀이 없습니다." 안내 메시지 등 추가 가능 -->
     </div>
 </div>
 {% with messages = get_flashed_messages() %}
