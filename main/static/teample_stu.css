@@ -1,305 +1,51 @@
 /* static/teample_stu.css */
-
-:root {
-    --primary: #6366f1;
-    --primary-dark: #4f46e5;
-    --secondary: #f59e0b;
-    --success: #10b981;
-    --danger: #ef4444;
-    --warning: #f59e0b;
-    --dark: #111827;
-    --gray-50: #fafafa;
-    --gray-100: #f5f5f5;
-    --gray-200: #e5e5e5;
-    --gray-300: #d4d4d8;
-    --gray-400: #a1a1aa;
-    --gray-500: #71717a;
-    --gray-600: #52525b;
-    --gray-700: #374151;
-    --gray-800: #1f2937;
-    --gray-900: #111827;
-    --white: #ffffff;
-}
-
-* { 
-    box-sizing: border-box; 
-}
-
-body { 
-    margin: 0; 
-    font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: var(--gray-50);
-    color: var(--gray-900);
-}
-
-.container { 
-    display: flex; 
-    min-height: 100vh; 
-}
-
-/* 사이드바 */
+* { box-sizing: border-box; }
+body { margin: 0; font-family: 'Noto Sans KR', Arial, sans-serif; background: #f8f9fa; }
+.container { display: flex; min-height: 100vh; }
 .sidebar {
-    width: 280px;
-    background: var(--dark);
-    padding: 32px 24px;
+    width: 260px;
+    background: #667eea;
+    padding: 30px 18px;
     display: flex;
     flex-direction: column;
     align-items: center;
     flex-shrink: 0;
-    position: relative;
 }
-
-.sidebar::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 1px;
-    height: 100%;
-    background: linear-gradient(180deg, transparent, var(--gray-700), transparent);
-}
-
 .profile {
     width: 100%;
-    padding: 24px;
-    margin-bottom: 32px;
-    background: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    margin-bottom: 28px;
+    background: rgba(255, 255, 255, 0.1);
     border-radius: 16px;
     text-align: center;
-    color: var(--white);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #ffffff;
 }
-
-.profile-pic { 
-    width: 80px; 
-    height: 80px; 
-    background: linear-gradient(135deg, var(--success), var(--primary));
-    border-radius: 50%; 
-    margin: 0 auto 16px; 
-    border: 3px solid rgba(255, 255, 255, 0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 32px;
-    color: var(--white);
-    font-weight: 600;
-    box-shadow: 0 8px 32px rgba(16, 185, 129, 0.3);
-}
-
-.profile-pic::before {
-    content: '👨‍🎓';
-    filter: grayscale(1) brightness(0) invert(1);
-}
-
-.profile h3 {
-    margin: 12px 0 8px;
-    font-weight: 600;
-    font-size: 1.2rem;
-}
-
-.profile p {
-    margin: 4px 0;
-    font-size: 13px;
-    color: rgba(255, 255, 255, 0.7);
-}
-
-/* 메뉴 버튼들 */
-.menu {
-    width: 100%;
-    margin-bottom: 24px;
-}
-
+.profile-pic { width: 70px; height: 70px; background: #ffffff; border-radius: 50%; margin: 0 auto 15px; border: 2px solid #a3b0f3; }
 .menu button {
-    width: 100%; 
-    margin-bottom: 12px;
-    padding: 16px 20px;
+    width: 100%; margin-bottom: 13px;
+    padding: 13px 0;
     font-size: 15px;
-    font-weight: 600;
-    background: rgba(255, 255, 255, 0.1);
-    color: var(--white);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
+    font-weight: bold;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    text-align: left;
-    position: relative;
-    overflow: hidden;
+    transition: background 0.2s;
 }
-
-.menu button::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-    transition: left 0.6s ease;
-}
-
-.menu button:hover { 
-    background: rgba(255, 255, 255, 0.15); 
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-}
-
-.menu button:hover::before {
-    left: 100%;
-}
-
-/* 메인 콘텐츠 */
-.main-content { 
-    flex: 1; 
-    padding: 40px; 
-}
-
-h2 { 
-    color: var(--gray-900); 
-    margin-top: 0; 
-    margin-bottom: 32px; 
-    font-size: 2.5rem; 
-    font-weight: 700;
-}
-
-.team-members {
-    font-size: 1.2rem;
-    margin-bottom: 25px;
-    color: var(--gray-600);
-    padding: 24px;
-    background: var(--white);
-    border-radius: 16px;
-    border: 1px solid var(--gray-200);
-    box-shadow: 0 4px 12px rgba(17, 24, 39, 0.05);
-}
-
-.team-members strong {
-    color: var(--gray-900);
-    font-weight: 600;
-}
-
+.menu button:hover { background: rgba(255, 255, 255, 0.3); }
+.main-content { flex: 1; padding: 40px 35px; }
+h2 { color: #343a40; margin-top: 0; margin-bottom: 30px; font-size: 2rem; }
 .team-board-preview {
-    background: var(--white);
+    background: #fff;
     border-radius: 16px;
-    margin-top: 32px;
-    padding: 32px;
-    box-shadow: 0 4px 12px rgba(17, 24, 39, 0.08);
-    border: 1px solid var(--gray-200);
+    margin-top: 22px;
+    padding: 25px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
 }
+.team-board-preview h3 { margin-top: 0; color: #667eea; }
 
-.team-board-preview h3 { 
-    margin-top: 0; 
-    color: var(--primary);
-    font-weight: 600;
-    margin-bottom: 20px;
-    font-size: 1.4rem;
-}
-
-.team-board-preview p {
-    margin: 12px 0;
-    color: var(--gray-600);
-    line-height: 1.6;
-}
-
-/* 채팅 섹션 */
-.chat-section, #chat-section {
-    margin-top: 32px;
-    background: var(--white);
-    border-radius: 16px;
-    padding: 32px;
-    border: 1px solid var(--gray-200);
-    box-shadow: 0 4px 12px rgba(17, 24, 39, 0.08);
-}
-
-.chat-section h3, #chat-section h3 {
-    margin-top: 0;
-    color: var(--primary);
-    font-weight: 600;
-    margin-bottom: 20px;
-    font-size: 1.4rem;
-}
-
-.chat-box, #chat {
-    border: 1px solid var(--gray-200);
-    height: 200px;
-    overflow-y: scroll;
-    padding: 20px;
-    background: var(--gray-50);
-    border-radius: 12px;
-    margin-bottom: 20px;
-    font-size: 14px;
-    line-height: 1.5;
-}
-
-.chat-input, #msg {
-    width: 60%;
-    padding: 14px 16px;
-    border: 2px solid var(--gray-200);
-    border-radius: 8px;
-    margin-right: 12px;
-    font-size: 14px;
-    color: var(--gray-900);
-    transition: all 0.3s ease;
-}
-
-.chat-input:focus, #msg:focus {
-    outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
-}
-
-.chat-button {
-    padding: 14px 24px;
-    background: var(--primary);
-    color: var(--white);
-    border: none;
-    border-radius: 8px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.chat-button:hover {
-    background: var(--primary-dark);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
-}
-
-/* 파일 업로드 폼 */
-#fileForm {
-    margin-top: 20px;
-    padding-top: 20px;
-    border-top: 1px solid var(--gray-200);
-}
-
-#fileForm input[type="file"] {
-    margin-bottom: 12px;
-    padding: 12px;
-    border: 2px solid var(--gray-200);
-    border-radius: 8px;
-    background: var(--gray-50);
-    width: 100%;
-    box-sizing: border-box;
-    font-size: 14px;
-}
-
-#fileForm button {
-    padding: 12px 24px;
-    background: var(--success);
-    color: var(--white);
-    border: none;
-    border-radius: 8px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-#fileForm button:hover {
-    background: #059669;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
-}
-
-/* 반응형 디자인 */
+/* --- 반응형 디자인을 위한 미디어 쿼리 --- */
 @media screen and (max-width: 768px) {
     .container {
         flex-direction: column;
@@ -310,54 +56,5 @@ h2 {
     }
     .main-content {
         padding: 20px;
-    }
-    
-    h2 {
-        font-size: 2rem;
-    }
-    
-    .chat-input, #msg {
-        width: 100%;
-        margin-bottom: 12px;
-        margin-right: 0;
-    }
-    
-    .chat-section, #chat-section {
-        padding: 24px;
-    }
-    
-    .team-board-preview {
-        padding: 24px;
-    }
-}
-
-@media screen and (max-width: 480px) {
-    .profile {
-        padding: 20px 16px;
-    }
-    
-    .profile-pic {
-        width: 64px;
-        height: 64px;
-        font-size: 24px;
-    }
-    
-    h2 {
-        font-size: 1.8rem;
-    }
-    
-    .team-members {
-        padding: 20px;
-        font-size: 1.1rem;
-    }
-    
-    .chat-section, #chat-section {
-        padding: 20px;
-        margin-top: 24px;
-    }
-    
-    .team-board-preview {
-        padding: 20px;
-        margin-top: 24px;
     }
 }

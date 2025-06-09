@@ -1,224 +1,75 @@
 <!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TeamHub - 팀 대기</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='waiting_for_teample.css') }}" />
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-</head>
-<body>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{{ url_for('static', filename='teample_stu.css') }}" />
+    </head>
+    <body>
     <div class="container">
         <div class="sidebar">
-            <div class="profile"> 
-                <div class="profile-pic"></div>
-                <h3>{{session['username']}}</h3>
-                <p>학번: {{session['student_number']}}</p>
-                <p>전공: {{session['major']}}</p> 
-                <p>학년: {{ session['grade']}}학년</p> 
-            </div>
-            
-            <div class="notice"> 
-                <h4>알림</h4>
-                <p>교수님이 팀을 구성 중입니다</p>
-                <p>잠시만 기다려주세요</p>
-                <p>팀이 생성되면 자동으로 안내됩니다</p>
+        <div class="profile"> 
+            <div class="profile-pic"></div>
+            <h3>{{session['username']}}</h3>
+            <p>ID: {{session['student_number']}}</p>
+            <p>Major: {{session['major']}} </p> 
+            <p>Grade: {{ session['grade']}} </p> 
+
+            <div class= "notice"> 
+                <p>notice1</p>
+                <p>notice2</p>
+                <p>notice3</p>
             </div>
         </div>
-
-        <div class="main-content">
-            <!-- 대기 메시지 -->
-            <div id="message">
-                <h1>교수님이 팀을 구성하고 있습니다</h1>
-                <p>팀 구성이 완료될 때까지 잠시만 기다려주세요.<br>
-                   팀이 생성되면 자동으로 팀 선택 화면으로 전환됩니다.</p>
-                
-                <div class="loading-dots">
-                    <span></span>
-                    <span></span>
-                    <span></span>
+        <h1 id="message">Waiting for Professor to create teams</h1>
+        <div class= "class_list"  id= "choose_team" style = "display:none;"> 
+            {% for team in team_info %}
+            <div class="team-card">
+                <div class="team-header">
+                    <span>{{ team[team_name] }}</span>
+                    <span>({{0}}/{{ team[team_size] }})</span>
                 </div>
+                <div class="team-members">
+                {% for member in team_relationship[username] if member['team_id'] == team['team_id'] %}
+                <p>{{ member['username'] }}</p>
+                {% endfor %}
+                <form action="/join_team" method="POST" onsubmit="join_team_socket('{{ team[2] }}')"> 
+                    <input type="hidden" id="team_id_{{ team['team_id'] }}" name="team_id" value="{{ team['team_id'] }}">   
+                    <button id="team_button" type="submit">팀 선택</button>
+                </form>
             </div>
+            {% endfor %}
 
-            <!-- 팀 선택 영역 (처음에는 숨김) -->
-            <div id="choose_team" style="display: none;">
-                <div class="team-selection-header">
-                    <h2>팀을 선택하세요</h2>
-                    <p>원하는 팀을 선택해서 참여하세요</p>
-                </div>
-
-                <div class="team-grid">
-                    {% for team in team_info %}
-                    <div class="team-card">
-                        <div class="team-header">
-                            <h3>{{ team.team_name if team.team_name else '팀 ' + team.team_id|string }}</h3>
-                            <span class="team-capacity available">
-                                {{ team.current_members|default(0) }}/{{ team.team_size if team.team_size else '4' }}
-                            </span>
-                        </div>
-                        
-                        <div class="team-members">
-                            <h4>현재 팀원</h4>
-                            {% if team_relationship and team_relationship.get('username') %}
-                                <div class="members-list">
-                                    {% for member in team_relationship['username'] %}
-                                        {% if member['team_id'] == team['team_id'] %}
-                                            <span class="member-tag">{{ member['username'] }}</span>
-                                        {% endif %}
-                                    {% endfor %}
-                                </div>
-                            {% else %}
-                                <p class="empty-slots">아직 참여한 팀원이 없습니다</p>
-                            {% endif %}
-                        </div>
-
-                        <form action="/join_team" method="POST" onsubmit="join_team_socket('{{ team.team_id if team.team_id else team[2] }}')"> 
-                            <input type="hidden" id="team_id_{{ team.team_id if team.team_id else team[2] }}" 
-                                   name="team_id" value="{{ team.team_id if team.team_id else team[2] }}">   
-                            <button id="team_button" type="submit">이 팀 선택하기</button>
-                        </form>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
         </div>
+
     </div>
-
-    <!-- 플래시 메시지 -->
     {% with messages = get_flashed_messages() %}
-        {% if messages %}     
-        <script>
-            const message = "{{ messages[-1] }}";
-            const isError = message.includes('오류') || message.includes('실패');
-            
-            const notification = document.createElement('div');
-            notification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: ${isError ? '#ef4444' : '#10b981'};
-                color: white;
-                padding: 16px 24px;
-                border-radius: 12px;
-                box-shadow: 0 8px 32px ${isError ? 'rgba(239, 68, 68, 0.3)' : 'rgba(16, 185, 129, 0.3)'};
-                z-index: 1000;
-                font-weight: 600;
-                animation: slideIn 0.3s ease;
-            `;
-            notification.textContent = message;
-            document.body.appendChild(notification);
-            
-            setTimeout(() => {
-                notification.style.animation = 'slideOut 0.3s ease';
-                setTimeout(() => notification.remove(), 300);
-            }, 4000);
-        </script>
-        {% endif %}
+                {% if messages %}     
+                <script>
+                    alert("{{ messages[-1] }}");
+                </script>
+                {% endif %}
     {% endwith %}
-
-    <!-- 소켓 통신 -->
     <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
     <script>
-        const socket = io();
-        
-        socket.on('connect', () => {
-            console.log('🟢 서버에 연결되었습니다:', socket.id);
-        });
+    const socket = io();
+    socket.on('connect', () => {
+    console.log('socket connected:', socket.id);
+    });
 
-        // 팀 생성 방식 수신
-        socket.on('creator_method', function(data) {
-            console.log('팀 생성 알림 수신:', data.msg);
-            
-            // 대기 메시지 숨기기
-            document.getElementById('message').style.display = 'none';
-            
-            // 팀 선택 영역 표시
-            document.getElementById('choose_team').style.display = 'block';
-            
-            // 성공 메시지 표시
-            const successMessage = document.createElement('div');
-            successMessage.className = 'status-message success';
-            successMessage.innerHTML = `
-                <h3>✅ 팀이 생성되었습니다!</h3>
-                <p>아래에서 원하는 팀을 선택해주세요</p>
-            `;
-            
-            const mainContent = document.querySelector('.main-content');
-            mainContent.insertBefore(successMessage, document.getElementById('choose_team'));
-            
-            // 3초 후 메시지 제거
-            setTimeout(() => {
-                successMessage.remove();
-            }, 3000);
-        });
-        
-        // 팀 참여 소켓 이벤트
-        function join_team_socket(teamId) {
+
+    socket.on('creator_method', function(data) {
+        console.log('Received creator_method:', data.msg);
+        document.getElementById('choose_team').style.display = 'block';
+        document.getElementById('message').innerHTML = 'choose Team';
+
+    });
+    
+    function join_team_socket(teamId)
+           {
             const username = "{{ session['username'] }}";
-            socket.emit('join_team_socket', { 
-                team_id: teamId, 
-                username: username 
-            });
-            console.log('팀 참여 요청:', { team_id: teamId, username: username });
-        }
-
-        // 연결 끊김 처리
-        socket.on('disconnect', () => {
-            console.log('🔴 서버 연결이 끊어졌습니다');
-            
-            // 연결 끊김 알림
-            const disconnectMessage = document.createElement('div');
-            disconnectMessage.className = 'status-message warning';
-            disconnectMessage.innerHTML = `
-                <h3>⚠️ 연결이 끊어졌습니다</h3>
-                <p>서버와의 연결이 끊어졌습니다. 페이지를 새로고침해주세요.</p>
-            `;
-            
-            const mainContent = document.querySelector('.main-content');
-            const firstChild = mainContent.firstElementChild;
-            mainContent.insertBefore(disconnectMessage, firstChild);
-        });
-
-        // 팀 참여 성공 알림
-        socket.on('team_join_success', function(data) {
-            const successNotification = document.createElement('div');
-            successNotification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: #10b981;
-                color: white;
-                padding: 16px 24px;
-                border-radius: 12px;
-                box-shadow: 0 8px 32px rgba(16, 185, 129, 0.3);
-                z-index: 1000;
-                font-weight: 600;
-                animation: slideIn 0.3s ease;
-            `;
-            successNotification.innerHTML = `
-                <div style="display: flex; align-items: center; gap: 8px;">
-                    <span>✅</span>
-                    <span>팀 참여가 완료되었습니다!</span>
-                </div>
-            `;
-            document.body.appendChild(successNotification);
-            
-            setTimeout(() => {
-                successNotification.style.animation = 'slideOut 0.3s ease';
-                setTimeout(() => successNotification.remove(), 300);
-            }, 3000);
-        });
-    </script>
-
-    <style>
-        @keyframes slideIn {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-        @keyframes slideOut {
-            from { transform: translateX(0); opacity: 1; }
-            to { transform: translateX(100%); opacity: 0; }
-        }
-    </style>
-</body>      
+            socket.emit('join_team_socket', { team_id: teamId, username: username });
+            console.log('emit join_class', { team_id: teamId, username: username });
+           }
+</script>
+    </body>      
 </html>
