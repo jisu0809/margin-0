@@ -31,10 +31,16 @@
         <div id="report">
             <div id="chat-section" style="margin-top:32px;">
                 <h3>게시판</h3>
-                <div id="chat" style="border:1px solid #ccc; height:200px; overflow-y:scroll; padding:10px; background:#fff;"></div>
-                <input id="msg_romm_id" autocomplete="off" placeholder="팀 ID 입력/ 공란시 클래스 전체 메시지" style="width:60%;">
-                <input id="msg" autocomplete="off" placeholder="메시지 입력" style="width:60%;">
-                <button onclick= "send_msg()" >게시</button>
+                <div id="class_chat" style="border:1px solid #ccc; height:200px; overflow-y:scroll; padding:10px; background:#fff;"></div>
+                <label for="target">메시지 전송 대상:</label>
+                <select id="target">
+                    <option value="class">클래스 전체</option>
+                    {% for team in team_list %}
+                        <option value= "{{ team['team_id'] }}"> 팀: {{ team['team_id'] }} </option>
+                    {% endfor %}
+                </select>                
+                <input id="class_msg" autocomplete="off" placeholder="메시지 입력" style="width:60%;">               
+                <button onclick= "sendProfChat()" >게시</button>
                 <form id="fileForm" enctype="multipart/form-data" style="margin-top:10px;">
                     <input type="file" id="file" name="file">
                     <button type="submit">파일올리기</button>
@@ -78,6 +84,7 @@
                 </script>
                 {% endif %}
 {% endwith %}
+<script src="https://cdn.socket.io/4.5.4/socket.io.min.js?v=2"></script>
 <script>
     function open_teample_creator() {
         document.getElementById("teample_creator").style.display = "block";
@@ -86,6 +93,53 @@
     function close_teample_creator() {
         document.getElementById("teample_creator").style.display = "None";
     }
+
+    const socket = io();
+    const team_id = "{{team_id}}";
+    const username = "{{session['username']}}"
+    const class_code = "{{session['class_code']}}"
+
+     // 채팅 전송 함수
+     function sendProfChat() {
+        const val = document.getElementById('class_msg').value;
+        targetId = document.getElementById("target");
+        if (val) {
+        if (target === 'class') {
+            socket.emit('prof_send_chat', { targetId: class_code, class_msg: val, username: username });
+        } else {
+            socket.emit('prof_send_chat', { targetId: target, class_msg: val, username: username });
+        }
+
+        document.getElementById('class_msg').value = '';
+        }
+    }
+    // 클래스 채팅방에 입장
+    socket.emit('join_class_socket', { class_code: class_code, username: username} );
+
+                                                                                                
+    // 채팅 수신 이벤트
+    socket.on('class_chat', data => {
+        console.log('클래스 채팅 수신:', data);
+        let class_chat = document.getElementById('class_chat');
+        let class_el = document.createElement('div');
+        class_el.innerHTML = `<b>${data.username}:</b> ${data.class_msg}`;
+        class_el.style.color = 'black';
+        class_chat.appendChild(class_el);
+        class_chat.scrollTop = class_chat.scrollHeight;
+    });
+
+    // 파일 업로드 핸들러
+    document.getElementById('fileForm').onsubmit = function(e) {
+        e.preventDefault();
+        const input = document.getElementById('file');
+        if (input.files.length > 0) {
+            const form = new FormData();
+            form.append('file', input.files[0]);
+            fetch(`/upload/${team_id}`, { method:'POST', body:form });
+            input.value = '';
+        }
+    }
+
 </script>
 </body>
 </html>

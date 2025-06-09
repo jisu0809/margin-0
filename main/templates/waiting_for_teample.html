@@ -20,28 +20,32 @@
                 <p>notice3</p>
             </div>
         </div>
+        </div>
+        <div class="main_content"> 
         <h1 id="message">Waiting for Professor to create teams</h1>
-        <div class= "class_list"  id= "choose_team" style = "display:none;"> 
+        <div class= "class_list"  id= "choose_team"> 
             {% for team in team_info %}
             <div class="team-card">
                 <div class="team-header">
-                    <span>{{ team[team_name] }}</span>
-                    <span>({{0}}/{{ team[team_size] }})</span>
+                    <span>{{ team['team_name'] }}</span>
+                    <span>({{team['current_size']}}/{{ team['team_size'] }})</span>
                 </div>
                 <div class="team-members">
-                {% for member in team_relationship[username] if member['team_id'] == team['team_id'] %}
-                <p>{{ member['username'] }}</p>
+                {% for member in team_relationship %}
+                    {% if member.team_id == team.team_id %}
+                      <p>{{ member.username }}</p>
+                    {% endif %}
                 {% endfor %}
                 <form action="/join_team" method="POST" onsubmit="join_team_socket('{{ team[2] }}')"> 
                     <input type="hidden" id="team_id_{{ team['team_id'] }}" name="team_id" value="{{ team['team_id'] }}">   
                     <button id="team_button" type="submit">팀 선택</button>
                 </form>
-            </div>
-            {% endfor %}
-
+                {% endfor %}
+                </div>
+            </div> 
         </div>
-
-    </div>
+        </div>
+    
     {% with messages = get_flashed_messages() %}
                 {% if messages %}     
                 <script>
@@ -56,20 +60,6 @@
     console.log('socket connected:', socket.id);
     });
 
-
-    socket.on('creator_method', function(data) {
-        console.log('Received creator_method:', data.msg);
-        document.getElementById('choose_team').style.display = 'block';
-        document.getElementById('message').innerHTML = 'choose Team';
-
-    });
-    
-    function join_team_socket(teamId)
-           {
-            const username = "{{ session['username'] }}";
-            socket.emit('join_team_socket', { team_id: teamId, username: username });
-            console.log('emit join_class', { team_id: teamId, username: username });
-           }
 </script>
     </body>      
 </html>

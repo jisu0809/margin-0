@@ -331,13 +331,39 @@ def waiting_for_teample():
         conn.close()
         return render_template("waiting_for_teample.html", current_class_info = current_class_info, session = session, team_info = team_info, team_relationship = team_relationship)
 
+@app.route('/join_team', methods=['GET', 'POST'])
+def join_team():
+        if request.method == 'POST':
+                username = session.get('username')
+                class_code = session.get('class_code')
+                team_id = request.form['team_id']
+                conn = sqlite3.connect('teample.db')
+                cursor = conn.cursor()
+                cursor.execute("INSERT INTO team_relationship(class_code, username, team_id) VALUES (?,?,?)",(class_code, username, team_id))
+                cursor.execute('UPDATE team_info SET current_size = current_size + 1 WHERE team_id = ?', (team_id,))
+                conn.commit()
+                conn.close()
+                return redirect(url_for('teample_stu'))
+        return redirect(url_for('teample_stu'))
+
+
+
+
 # === 학생이 class 들어갈때 룸 추가===
 @socketio.on('join_class_socket')
 def on_join_class_socket(data):
     class_code = data['class_code']
     username = data['username']
     join_room(class_code)
-    emit('chat', {'msg': f"{username}님이 입장했습니다.", 'user': 'system'}, room=class_code)
+    emit('class_chat', {'class_msg': f"{username}님이 입장했습니다.", 'username': 'system'}, room=class_code)
+
+
+# === SocketIO: 팀별 실시간 채팅 ===
+@socketio.on('class_chat')
+def on_class_chat(data):
+    room = data['class_code']
+    emit('class_chat', {'class_msg': data['class_msg'], 'username': data['username']}, room=room, include_self=True)
+
 
 # === 학생이 team 들어갈때 룸 추가===
 @socketio.on('join_team_socket')
@@ -345,7 +371,7 @@ def on_join_team_socket(data):
     team_id = data['team_id']
     username = data['username']
     join_room(team_id)
-    emit('chat', {'msg': f"{username}님이 입장했습니다.", 'user': 'system'}, room=team_id)
+    emit('chat', {'msg': f"{username}님이 입장했습니다.", 'username': 'system'}, room=team_id)
 
 # 파일 업로드
 @app.route('/upload/<int:team_id>', methods=['POST'])
@@ -359,8 +385,8 @@ def upload_file(team_id):
     # 파일 업로드 시 채팅방에 메시지 알림
     socketio.emit('chat', {
         'msg': f'파일 업로드: <a href="/uploads/{filename}" target="_blank">{filename}</a>',
-        'user': session.get('username', '익명')
-    }, room=f'team_{team_id}')
+        'username': session.get('username', '익명')
+    }, room= team_id)
     return '', 204
 
 # === 업로드된 파일 제공 ===
@@ -369,16 +395,19 @@ def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 # === SocketIO: 팀별 실시간 채팅 ===
-@socketio.on('join')
-def on_join(data):
-    room = f"team_{data['team_id']}"
-    join_room(room)
-    emit('chat', {'msg': f"{data['user']}님이 입장했습니다.", 'user': 'system'}, room=room)
-
 @socketio.on('chat')
 def on_chat(data):
-    room = f"team_{data['team_id']}"
-    emit('chat', {'msg': data['msg'], 'user': data['user']}, room=room)
+    room = f"{data['team_id']}"
+    emit('chat', {'msg': data['msg'], 'username': data['username']}, room=room, include_self=True)
+
+# === SocketIO: 교수자 실시간 채팅 ===
+@socketio.on('prof_send_chat')
+def prof_send_chat(data):
+    targetId = data['targetId']  
+    message = data['message']
+    username = data['username']
+    room = targetId
+    emit('class_chat', {'username': "PROFESSOR{username}", 'class_msg': message}, room=room, include_self=True)
 
 
 if __name__ == '__main__':
