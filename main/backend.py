@@ -29,7 +29,7 @@ def save_logged_in_user():
 
 @app.route('/')
 def index():
-        return redirect(url_for('signup'))
+        return render_template('index.html')
 
 @app.route('/signup', methods = ['GET','POST'])
 def signup():

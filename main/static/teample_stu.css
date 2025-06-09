@@ -1,60 +1,138 @@
 /* static/teample_stu.css */
-* { box-sizing: border-box; }
-body { margin: 0; font-family: 'Noto Sans KR', Arial, sans-serif; background: #f8f9fa; }
-.container { display: flex; min-height: 100vh; }
+:root {
+    --primary: #6a5acd; /* 메인 블루/퍼플 계열 색상 */
+    --primary-dark: #5d4eb4;
+    --white: #ffffff;
+    --text-primary: #1f2937;
+    --text-secondary: #6b7280;
+    --text-light: #f0f0f0;
+    --bg-light: #f9fafb;
+    --border-light: rgba(255, 255, 255, 0.1);
+    --border-color: #e5e7eb;
+    --font-family: 'Noto Sans KR', sans-serif;
+}
+
+* { 
+    box-sizing: border-box; 
+}
+
+body { 
+    margin: 0; 
+    font-family: var(--font-family); 
+    background: var(--bg-light); 
+}
+
+.container { 
+    display: flex; 
+    min-height: 100vh; 
+}
+
+/* 사이드바 */
 .sidebar {
-    width: 260px;
-    background: #667eea;
-    padding: 30px 18px;
+    width: 280px;
+    background: var(--primary); /* 사이드바 배경을 메인 테마 색상으로 변경 */
+    padding: 32px 24px;
     display: flex;
     flex-direction: column;
     align-items: center;
     flex-shrink: 0;
+    color: var(--white);
 }
+
 .profile {
-    width: 100%;
-    padding: 20px;
-    margin-bottom: 28px;
-    background: rgba(255, 255, 255, 0.1);
+    width: 100%; 
+    padding: 24px;
+    margin-bottom: 30px;
+    background: var(--border-light);
     border-radius: 16px;
     text-align: center;
-    color: #ffffff;
 }
-.profile-pic { width: 70px; height: 70px; background: #ffffff; border-radius: 50%; margin: 0 auto 15px; border: 2px solid #a3b0f3; }
-.menu button {
-    width: 100%; margin-bottom: 13px;
-    padding: 13px 0;
-    font-size: 15px;
-    font-weight: bold;
-    background: rgba(255, 255, 255, 0.2);
-    color: #fff;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background 0.2s;
-}
-.menu button:hover { background: rgba(255, 255, 255, 0.3); }
-.main-content { flex: 1; padding: 40px 35px; }
-h2 { color: #343a40; margin-top: 0; margin-bottom: 30px; font-size: 2rem; }
-.team-board-preview {
-    background: #fff;
-    border-radius: 16px;
-    margin-top: 22px;
-    padding: 25px;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
-}
-.team-board-preview h3 { margin-top: 0; color: #667eea; }
 
-/* --- 반응형 디자인을 위한 미디어 쿼리 --- */
+.profile-pic {
+    width: 80px; 
+    height: 80px;
+    background: var(--white);
+    border-radius: 50%; 
+    margin: 0 auto 18px;
+    border: 3px solid var(--primary-dark);
+}
+
+.profile h3 {
+    margin: 0 0 5px;
+}
+
+.profile p {
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+.menu { 
+    width: 100%; 
+}
+
+.menu button {
+    width: 100%; 
+    margin-bottom: 12px;
+    padding: 14px 0;
+    font-size: 1rem; 
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.15);
+    color: var(--text-light);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    cursor: pointer; 
+    transition: all 0.3s ease;
+}
+
+.menu button:hover {
+    background: var(--white);
+    color: var(--primary);
+}
+
+/* 메인 콘텐츠 */
+.main-content { 
+    flex: 1; 
+    padding: 40px; 
+}
+
+.main-content h2 {
+    color: var(--text-primary);
+    margin: 0 0 16px;
+    font-size: 2.25rem; 
+    font-weight: 700;
+}
+
+.team-members {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin-bottom: 32px;
+}
+
+.team-board-preview {
+    background: var(--white);
+    border-radius: 16px;
+    margin-bottom: 24px;
+    padding: 28px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--border-color);
+}
+
+.team-board-preview h3 {
+    font-weight: 700; 
+    font-size: 1.4rem;
+    margin: 0 0 16px 0; 
+    color: var(--primary);
+}
+
+/* 반응형 디자인 */
 @media screen and (max-width: 768px) {
-    .container {
-        flex-direction: column;
+    .container { 
+        flex-direction: column; 
     }
-    .sidebar {
-        width: 100%;
-        box-sizing: border-box;
+    .sidebar { 
+        width: 100%; 
     }
     .main-content {
-        padding: 20px;
+        padding: 24px;
     }
 }

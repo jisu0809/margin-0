@@ -1,19 +1,24 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="{{ url_for('static', filename='mainpage_stu.css') }}" />
-    </head>
-    <body>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>학생 대시보드</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='mainpage_stu.css') }}" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
     <div class="container">
         <div class="sidebar">
-        <div class="profile"> 
-            <div class="profile-pic"></div>
-            <h3>{{session['username']}}</h3>
-            <p>ID: {{session['student_number']}}</p>
-            <p>Major: {{session['major']}} </p> 
-            <p>Grade: {{ session['grade']}} </p> 
+            <div class="profile">
+                <div class="profile-pic"></div>
+                <h3>{{session['username']}}</h3>
+                <p>학번: {{session['student_number']}}</p>
+                <p>전공: {{session['major']}}</p>
+                <p>학년: {{ session['grade']}}학년</p>
+            </div>
 
+<<<<<<< HEAD
             </div>
             <div class= "join_team"> 
             <form action="/join_class" method="POST">    
@@ -31,29 +36,54 @@
                 <form action="/teample_stu" method="POST" >
                     <input type="hidden" name="class_code" value="{{class[1]}}">
                     <button type="submit">{{ class[0] }} (class code: {{ class[1] }})</button>
+=======
+            <div class="join_team">
+                <form action="/join_class" method="POST">
+                    <input placeholder="수업 코드를 입력하세요" type="text" name="class_code" id="class_code" required>
+                    <button id="team_button" type="submit">
+                        수업 참여하기
+                    </button>
+>>>>>>> 4552f13efbddb26803be824c5bf71382342270b0
                 </form>
-            {% endfor %}
+            </div>
+
+            <div class="notice">
+                <h4>공지사항</h4>
+                <p>팀 프로젝트 가이드라인이 업데이트되었습니다.</p>
+                <p>중간발표 일정을 확인해주세요.</p>
+            </div>
         </div>
 
-    </div>
-    {% with messages = get_flashed_messages() %}
-                {% if messages %}     
-                <script>
-                    alert("{{ messages[-1] }}");
-                </script>
+        <div class="main-content">
+            <div class="page-header">
+                <h1>학생 대시보드</h1>
+                <p>참여 중인 수업에서 팀을 이루고 프로젝트를 함께 진행하세요.</p>
+            </div>
+            
+            <div class="class-grid">
+                {% if included_class_info %}
+                    {% for class in included_class_info %}
+                        <form action="/teample_stu" method="POST">
+                            <input type="hidden" name="class_code" value="{{class[1]}}">
+                            <button type="submit">
+                                <div class="class-info">
+                                    <h3>{{ class[0] }}</h3>
+                                    <div class="class-details">
+                                        <p>수업 코드: {{ class[1] }}</p>
+                                        <p>내 팀: {{ class[4] if class[4] else '미배정' }}</p>
+                                    </div>
+                                </div>
+                            </button>
+                        </form>
+                    {% endfor %}
+                {% else %}
+                    <div class="empty-state">
+                        <h3>아직 참여한 수업이 없습니다</h3>
+                        <p>교수님께서 제공한 수업 코드로 수업에 참여해보세요!</p>
+                    </div>
                 {% endif %}
-    {% endwith %}
-    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
-    
-    <script>
-    const socket = io();
-        // 클래스 채팅방에 입장
-        function join_class_socket()
-           {
-           const class_code = document.getElementById("class_code").value;
-           const username = "{{ session['username'] }}";
-           socket.emit('join_class_socket', {class_code: class_code, username: username});
-           }
-       </script>
-    </body>      
+            </div>
+        </div>
+    </div>
+</body>
 </html>

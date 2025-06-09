@@ -2,17 +2,19 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="{{ url_for('static', filename='mainpage_prof.css') }}" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='create_class.css') }}" />
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
     </head>
     <body>
-        <div id=student_button class="format">
+        <div class="form-container">
+            <h2> 새로운 수업 개설</h2>
             <form method="POST" action="/create_class_prof">
-                <input placeholder="class name" type="text" id="class_name" name="class_name" required ><br>
-                <input placeholder="class code" type="password" id="class_code" name="class_code" required><br>
-                <input placeholder="class_size" name="class_size" type="number" required><br>
-                
-                <button type="submit">생성하기</button>
+                <input class="input" placeholder="수업 이름" type="text" name="class_name" required>
+                <input class="input" placeholder="수업 코드 (학생들에게 공유될 코드)" type="text" name="class_code" required>
+                <input class="input" placeholder="수강 정원" name="class_size" type="number" required>
+                <button type="submit" class="btn-submit">생성하기</button>
             </form>
+            <a href="{{ url_for('mainpage_prof') }}" class="link-back">대시보드로 돌아가기</a>
         </div>
     </body>      
 </html>
