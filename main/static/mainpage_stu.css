@@ -1,409 +1,69 @@
 /* static/mainpage_stu.css */
-
-:root {
-    --primary: #6366f1;
-    --primary-dark: #4f46e5;
-    --secondary: #f59e0b;
-    --success: #10b981;
-    --danger: #ef4444;
-    --dark: #111827;
-    --gray-50: #fafafa;
-    --gray-100: #f5f5f5;
-    --gray-200: #e5e5e5;
-    --gray-300: #d4d4d8;
-    --gray-400: #a1a1aa;
-    --gray-500: #71717a;
-    --gray-600: #52525b;
-    --gray-700: #374151;
-    --gray-800: #1f2937;
-    --gray-900: #111827;
-    --white: #ffffff;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body { 
-    font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background-color: var(--gray-50);
-    color: var(--gray-900);
-}
-
-.container { 
-    display: flex; 
-    min-height: 100vh; 
-}
-
-/* 사이드바 */
+body { margin: 0; font-family: 'Noto Sans KR', Arial, sans-serif; background-color: #f8f9fa; }
+.container { display: flex; min-height: 100vh; }
 .sidebar {
-    width: 280px;
-    background: var(--dark);
-    padding: 32px 24px;
+    width: 300px;
+    background-color: #ffffff;
+    padding: 30px;
+    border-right: 1px solid #e9ecef;
     display: flex;
     flex-direction: column;
     flex-shrink: 0;
-    position: relative;
 }
-
-.sidebar::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 1px;
-    height: 100%;
-    background: linear-gradient(180deg, transparent, var(--gray-700), transparent);
-}
-
-.profile { 
-    text-align: center; 
-    margin-bottom: 32px;
-    padding: 24px 20px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 16px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.profile-pic { 
-    width: 80px; 
-    height: 80px; 
-    background: linear-gradient(135deg, var(--success), var(--primary));
-    border-radius: 50%; 
-    margin: 0 auto 16px;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 32px;
-    color: var(--white);
-    font-weight: 600;
-    box-shadow: 0 8px 32px rgba(16, 185, 129, 0.3);
-}
-
-.profile-pic::before {
-    content: '👨‍🎓';
-    filter: grayscale(1) brightness(0) invert(1);
-}
-
-.profile h3 { 
-    margin: 12px 0 8px; 
-    color: var(--white); 
-    font-weight: 600;
-    font-size: 1.2rem;
-}
-
-.profile p { 
-    margin: 4px 0; 
-    font-size: 13px; 
-    color: rgba(255, 255, 255, 0.7);
-}
-
-/* 수업 참여 폼 */
+.profile { text-align: center; margin-bottom: 35px; }
+.profile-pic { width: 100px; height: 100px; background-color: #e9ecef; border-radius: 50%; margin: 0 auto 15px; }
+.profile h3 { margin: 10px 0 5px; color: #343a40; }
+.profile p { margin: 4px 0; font-size: 14px; color: #868e96; }
 .join_team {
-    margin-bottom: 24px;
-}
-
-.join_team form {
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.join_team input {
-    width: 100%;
-    padding: 14px 16px;
-    font-size: 14px;
-    color: var(--gray-900);
-    background: var(--white);
-    border: 2px solid var(--gray-300);
-    border-radius: 12px;
-    box-sizing: border-box;
-    text-align: center;
-    transition: all 0.3s ease;
-    font-family: inherit;
-}
-
-.join_team input::placeholder {
-    color: var(--gray-400);
-}
-
-.join_team input:focus {
-    outline: none;
-    border-color: var(--success);
-    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
-    transform: translateY(-1px);
-}
-
-.join_team button, #team_button {
-    width: 100%;
-    padding: 14px 20px;
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--white);
-    background: var(--success);
+    padding: 15px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #667eea;
     border: none;
     border-radius: 12px;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
+    transition: background-color 0.3s, transform 0.2s;
 }
-
-.join_team button::before, #team_button::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.6s ease;
-}
-
-.join_team button:hover, #team_button:hover { 
-    background: #059669;
-    transform: translateY(-2px); 
-    box-shadow: 0 12px 32px rgba(16, 185, 129, 0.4);
-}
-
-.join_team button:hover::before, #team_button:hover::before {
-    left: 100%;
-}
-
-/* 공지사항 */
+.join_team:hover { background-color: #5a6ed0; transform: translateY(-2px); }
 .notice {
     width: 100%;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 24px 20px;
+    border: 1px solid #e9ecef;
+    padding: 20px;
     margin-top: auto;
-    border-radius: 16px;
-    color: var(--white);
-}
-
-.notice h4 {
-    margin: 0 0 16px 0;
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--white);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.notice h4::before {
-    content: '📢';
-    font-size: 16px;
-}
-
-.notice p {
-    margin: 8px 0;
-    font-size: 13px;
-    line-height: 1.5;
-    color: var(--gray-300);
-    padding: 8px 12px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 8px;
-    border-left: 3px solid var(--secondary);
-}
-
-/* 메인 콘텐츠 영역 */
-.class_list { 
-    flex: 1; 
-    padding: 40px; 
-    background: var(--gray-50);
-    display: flex;
-    flex-direction: column;
-}
-
-.page-header {
-    margin-bottom: 40px;
-}
-
-.page-header h1 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: var(--gray-900);
-    margin-bottom: 8px;
-}
-
-.page-header p {
-    font-size: 1.1rem;
-    color: var(--gray-500);
-}
-
-/* 수업 카드 컨테이너 */
-.class-grid {
-    display: grid;
-    gap: 24px;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-}
-
-.class_list form {
-    width: 100%;
-}
-
-.class_list form button {
-    width: 100%;
-    padding: 32px 28px;
-    background: var(--white);
-    border-radius: 16px;
-    box-shadow: 0 4px 12px rgba(17, 24, 39, 0.06);
-    border: 1px solid var(--gray-200);
-    color: var(--gray-900);
-    font-size: 1.1rem;
-    font-weight: 600;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    cursor: pointer;
-    text-align: left;
-    position: relative;
-    overflow: hidden;
-}
-
-.class_list form button::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--success), var(--primary));
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.3s ease;
-}
-
-.class_list form button::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.05), transparent);
-    transition: left 0.6s ease;
-}
-
-.class_list form button:hover { 
-    transform: translateY(-4px); 
-    box-shadow: 0 12px 25px rgba(17, 24, 39, 0.12); 
-    border-color: var(--success);
-}
-
-.class_list form button:hover::before {
-    transform: scaleX(1);
-}
-
-.class_list form button:hover::after {
-    left: 100%;
-}
-
-/* 빈 상태 */
-.empty-state {
-    text-align: center;
-    padding: 80px 40px;
-    color: var(--gray-500);
-    background: var(--white);
-    border-radius: 16px;
-    border: 1px solid var(--gray-200);
-}
-
-.empty-state h3 {
-    font-size: 1.5rem;
-    margin-bottom: 12px;
-    color: var(--gray-700);
-}
-
-.empty-state p {
-    font-size: 1rem;
-    margin-bottom: 32px;
-    line-height: 1.6;
-}
-
-.empty-state .help-text {
-    background: var(--gray-50);
-    padding: 24px;
+    background-color: #f8f9fa;
     border-radius: 12px;
-    border: 1px solid var(--gray-200);
-    margin-top: 24px;
-    text-align: left;
+    text-align: center;
 }
-
-.empty-state .help-text h4 {
-    color: var(--gray-900);
-    margin-bottom: 12px;
+.class_list { flex: 1; padding: 40px; display: flex; flex-direction: column; gap: 20px; }
+.class_list a {
+    display: block;
+    padding: 25px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+    text-decoration: none;
+    color: #495057;
     font-size: 1.1rem;
+    font-weight: 600;
+    transition: transform 0.3s, box-shadow 0.3s;
 }
+.class_list a:hover { transform: translateY(-5px); box-shadow: 0 8px 24px rgba(102, 126, 234, 0.15); color: #667eea; }
 
-.empty-state .help-text ol {
-    color: var(--gray-600);
-    padding-left: 20px;
-}
-
-.empty-state .help-text li {
-    margin-bottom: 8px;
-    line-height: 1.5;
-}
-
-/* 반응형 디자인 */
+/* --- 반응형 디자인을 위한 미디어 쿼리 --- */
 @media screen and (max-width: 768px) {
     .container {
         flex-direction: column;
+        height: auto;
     }
-    
     .sidebar {
         width: 100%;
-        padding: 24px 20px;
-        border-bottom: 1px solid var(--gray-200);
+        box-sizing: border-box;
+        border-right: none;
+        border-bottom: 1px solid #e9ecef;
     }
-    
     .class_list {
-        padding: 24px 20px;
-    }
-    
-    .class-grid {
-        grid-template-columns: 1fr;
-        gap: 16px;
-    }
-    
-    .page-header h1 {
-        font-size: 2rem;
-    }
-    
-    .empty-state {
-        padding: 60px 24px;
-    }
-}
-
-@media screen and (max-width: 480px) {
-    .profile {
-        padding: 20px 16px;
-    }
-    
-    .profile-pic {
-        width: 64px;
-        height: 64px;
-        font-size: 24px;
-    }
-    
-    .class_list form button {
-        padding: 24px 20px;
-        font-size: 1rem;
-    }
-    
-    .page-header {
-        margin-bottom: 32px;
-    }
-    
-    .page-header h1 {
-        font-size: 1.8rem;
-    }
-    
-    .page-header p {
-        font-size: 1rem;
+        padding: 20px;
     }
 }

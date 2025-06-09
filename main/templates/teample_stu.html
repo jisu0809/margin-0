@@ -15,7 +15,7 @@
 
         </div>
         <div class="menu">
-            <button><!-- TODO: 클래스 게시판 기능 연동 --></button>
+            <button><!-- TODO: 우리팀 게시판 기능 연동 --></button>
             <button><!-- TODO: 우리팀 채팅 연동 --></button>
             <button><!-- TODO: 파일함 연동 --></button>
             <button onclick="location.href='/logout'">로그아웃</button>
@@ -26,11 +26,11 @@
         <h2>내 팀: {{current_team_info['team_name']}}</h2>
         
         <div class="team-members">
-            {% for member in current_team_relationship_info %}
+            {% for member in current_team_info %}
                 <span>{{ member['username'] }}</span>{% if not loop.last %}, {% endif %}
             {% endfor %}
         </div>
-        <div class="team-board-preview">
+=        <div class="team-board-preview">
             <h3>공지/최근글</h3>
             <!-- TODO: 최근 게시글, 공지글 리스트 표시 -->
         </div>
@@ -38,7 +38,7 @@
             <h3>팀 채팅</h3>
             <div id="chat" style="border:1px solid #ccc; height:200px; overflow-y:scroll; padding:10px; background:#fff;"></div>
             <input id="msg" autocomplete="off" placeholder="메시지 입력" style="width:60%;">
-            <button onclick= "send_msg()" >전송</button>
+            <button onclick="sendMsg()">전송</button>
             <form id="fileForm" enctype="multipart/form-data" style="margin-top:10px;">
                 <input type="file" id="file" name="file">
                 <button type="submit">파일올리기</button>
@@ -53,9 +53,10 @@
                 </script>
                 {% endif %}
 {% endwith %}
-<script src="https://cdn.socket.io/4.5.4/socket.io.min.js?v=2"></script>
+<script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
 <script>
     const socket = io();
+<<<<<<< HEAD
 
     // 채팅 전송 함수
     function send_msg() {
@@ -65,18 +66,29 @@
             document.getElementById('msg').value = '';
         }
     }
+=======
+>>>>>>> ea5b4d4259204445caba56795734f0c0853fbbda
 
     // 팀 채팅방에 입장
-    socket.emit('join_team_socket', {team_id: team_id , username: username});
-                                                                                                
+    socket.emit('join', {team_id, user: username});
+
     // 채팅 수신 이벤트
     socket.on('chat', data => {
         let chat = document.getElementById('chat');
         let el = document.createElement('div');
-        el.innerHTML = `<b>${data.username}:</b> ${data.msg}`;
+        el.innerHTML = `<b>${data.user}:</b> ${data.msg}`;
         chat.appendChild(el);
         chat.scrollTop = chat.scrollHeight;
     });
+
+    // 채팅 전송 함수
+    function sendMsg() {
+        const val = document.getElementById('msg').value;
+        if (val) {
+            socket.emit('chat', {team_id, msg: val, user: username});
+            document.getElementById('msg').value = '';
+        }
+    }
 
     // 파일 업로드 핸들러
     document.getElementById('fileForm').onsubmit = function(e) {
