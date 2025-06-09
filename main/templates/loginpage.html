@@ -2,9 +2,14 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>로그인</title>
         <link href="{{ url_for('static', filename='loginpage.css') }}" rel="stylesheet" />
     </head>
     <body>
+        <div class="page-title">
+            <h1>로그인</h1>
+        </div>
+        
             <button onclick="choose_stu()" class="button" id="stu_option" >학생</button>
             <button onclick="choose_prof()" class="button" id="prof_option">교수자</button>
             <br>
