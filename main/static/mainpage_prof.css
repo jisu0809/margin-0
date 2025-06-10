@@ -1,6 +1,7 @@
 :root {
     --prof-primary: #1E40AF;     
-    --prof-primary-dark: #1E3A8A;
+    --prof-primary-dark: #1E3A8A; /* [수정] 호버 효과를 위한 더 어두운 계열 */
+    --white: #ffffff;
     --text-light: #f8f9fa;
     --text-muted: #e9ecef;
     --text-dark: #212529;
