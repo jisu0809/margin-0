@@ -404,10 +404,12 @@ def on_chat(data):
 @socketio.on('prof_send_chat')
 def prof_send_chat(data):
     targetId = data['targetId']  
-    message = data['message']
+    message = data['class_msg']
     username = data['username']
     room = targetId
-    emit('class_chat', {'username': "PROFESSOR{username}", 'class_msg': message}, room=room, include_self=True)
+    emit('class_chat', {'username': f"PROFESSOR {username}", 'class_msg': message}, room=room, include_self=False)
+    emit('class_chat', {'username': f"PROFESSOR {username}", 'class_msg': message}, include_self=True)
+
 
 
 if __name__ == '__main__':

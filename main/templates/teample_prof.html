@@ -35,8 +35,8 @@
                 <label for="target">메시지 전송 대상:</label>
                 <select id="target">
                     <option value="class">클래스 전체</option>
-                    {% for team in team_list %}
-                        <option value= "{{ team['team_id'] }}"> 팀: {{ team['team_id'] }} </option>
+                    {% for team in team_info %}
+                        <option value="{{ team['team_id'] }}">team_id: {{ team['team_id'] }}</option>
                     {% endfor %}
                 </select>                
                 <input id="class_msg" autocomplete="off" placeholder="메시지 입력" style="width:60%;">               
@@ -53,15 +53,17 @@
         {% for team in team_info %}
         <div class="team-card">
             <div class="team-header">
-                <span>{{ team[team_name] }}</span>
-                <span>({{0}}/{{ team[team_size] }})</span>
+                <span>team_id :{{ team['team_id'] }}</span>
+                <span>({{team['current_size']}}/{{ team['team_size'] }})</span>
             </div>
             <div class="team-members">
-            {% for member in team_relationship[username] if member['team_id'] == team['team_id'] %}
-            <p>{{ member['username'] }}</p>
+                {% for member in team_relationship %}
+                {% if member['team_id'] == team['team_id'] %}
+                    <p>{{ member['username'] }}</p>
+                {% endif %}
             {% endfor %}
-
             </div>
+
             <div class="team-actions">
                 <button onclick="location.href='/team/{{ team.id }}/board'">
                     게시판 <!--팀별 게시판 기능과 연동 필요 -->
@@ -101,18 +103,17 @@
 
      // 채팅 전송 함수
      function sendProfChat() {
-        const val = document.getElementById('class_msg').value;
-        targetId = document.getElementById("target");
-        if (val) {
-        if (target === 'class') {
+    const val = document.getElementById('class_msg').value;
+    const targetId = document.getElementById("target").value;   
+    if (val) {
+        if (targetId === 'class') {  
             socket.emit('prof_send_chat', { targetId: class_code, class_msg: val, username: username });
         } else {
-            socket.emit('prof_send_chat', { targetId: target, class_msg: val, username: username });
+            socket.emit('prof_send_chat', { targetId: targetId, class_msg: val, username: username });
         }
-
         document.getElementById('class_msg').value = '';
-        }
     }
+}
     // 클래스 채팅방에 입장
     socket.emit('join_class_socket', { class_code: class_code, username: username} );
 
