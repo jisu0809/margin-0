@@ -1,83 +1,119 @@
-/* static/loginpage.css */
+:root {
+    --primary: #6a5acd;
+    --primary-dark: #5d4eb4;
+    --text-primary: #1f2937;
+    --text-secondary: #6b7280;
+    --bg-light: #f9fafb;
+    --bg-white: #ffffff;
+    --border-color: #e5e7eb;
+    --font-family: 'Noto Sans KR', sans-serif;
+}
 
 body {
-    text-align: center;
-    font-family: 'Noto Sans KR', Arial, sans-serif;
-    background-color: #f4f7f6;
-    padding: 20px;
-    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    font-family: var(--font-family);
+    background-color: var(--bg-light);
+}
+
+.page-title h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 24px;
+}
+
+.options-container {
+    display: flex; /* 버튼을 가로로 배열 */
+    gap: 10px;
+    margin-bottom: 24px;
+    background-color: var(--bg-white);
+    padding: 8px;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+    border: 1px solid var(--border-color);
 }
 
 .button {
-    width: 48%;
-    max-width: 220px;
-    padding: 18px 0;
-    margin: 0 1% 20px 1%;
-    border: 1px solid #dee2e6;
+    padding: 12px 28px;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
     border-radius: 8px;
-    font-size: 16px;
-    font-weight: 500;
+    background-color: transparent;
+    color: var(--text-secondary);
     cursor: pointer;
-    transition: all 0.3s ease;
-    background-color: #f8f9fa;
-    color: #495057;
+    transition: all 0.2s ease-in-out;
 }
 
-form {
-    width: 380px;
-    background: #fff;
+.button.active {
+    background-color: var(--primary);
+    color: var(--bg-white);
+    box-shadow: 0 4px 14px rgba(106, 90, 205, 0.3);
+}
+
+.login-form {
+    width: 400px;
+    background: var(--bg-white);
     border-radius: 16px;
-    box-shadow: 0 6px 24px rgba(60,80,200,0.07);
-    padding: 44px 52px 36px 52px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    padding: 40px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    max-width: 90vw;      
-    min-width: 0;
-    margin: 0 auto;
-}
-
-.format {
-    
-    text-align: center;
-    border: none;
-    padding: 0;
+    max-width: 90vw;
+    margin: 0 auto 16px;
 }
 
 .input {
-    width: 90%; 
-    padding: 16px; 
-    margin: 8px 0; 
-    font-size: 16px;
-    color: #495057;
-    background-color: #f8f9fa;
-    border: 1px solid #dee2e6;
-    border-radius: 6px;
+    width: 100%;
+    padding: 16px;
+    margin-bottom: 16px;
+    font-size: 1rem;
+    color: var(--text-primary);
+    background-color: var(--bg-light);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
     box-sizing: border-box;
-    transition: border-color 0.2s, box-shadow 0.2s;
-    text-align: center; 
+    transition: all 0.2s ease;
 }
 
-.input::placeholder { color: #868e96; }
+.input::placeholder { color: var(--text-secondary); }
+
 .input:focus {
     outline: none;
-    border-color: #294d80;
-    box-shadow: 0 0 0 2px rgba(41, 77, 128, 0.1);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(106, 90, 205, 0.15);
 }
 
-button.input {
-    cursor: pointer;
-    text-align: center; 
+.submit-btn {
     font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    color: var(--bg-white);
+    background-color: var(--primary);
+    border: none;
+    margin-top: 8px;
 }
+.submit-btn:hover { background-color: var(--primary-dark); }
 
-button.input:hover { filter: brightness(95%); }
-#login { color: #fff; background-color: #294d80; margin-top: 20px; }
-#sign_up { color: #495057; background-color: #e9ecef; }
-
-/* --- 반응형 디자인을 위한 미디어 쿼리 --- */
-@media screen and (max-width: 500px) {
-    form {
-        padding: 30px 20px; /* 모바일에서 좌우 여백 줄임 */
-    }
+.link-button {
+    display: block;
+    width: 400px;
+    max-width: 90vw;
+    padding: 16px;
+    box-sizing: border-box;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+    color: var(--text-secondary);
+    background-color: var(--bg-white);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
 }
+.link-button:hover { background-color: #f3f4f6; }

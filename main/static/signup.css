@@ -1,4 +1,4 @@
-/* static/signup.css */
+/* 방법 2: 권장 최종안 CSS */
 :root {
     --primary: #6a5acd;
     --primary-dark: #5d4eb4;
@@ -21,18 +21,15 @@ body {
     background-color: var(--bg-light);
 }
 
-.page-title {
-    text-align: center;
-    margin-bottom: 24px;
-}
 .page-title h1 {
     font-size: 2.2rem;
     font-weight: 700;
     color: var(--text-primary);
+    margin-bottom: 24px;
 }
 
 .options-container {
-    display: flex;
+    display: flex; /* 버튼을 가로로 배열 */
     gap: 10px;
     margin-bottom: 24px;
     background-color: var(--bg-white);
@@ -85,27 +82,12 @@ body {
     transition: all 0.2s ease;
 }
 
-.input:last-child {
-    margin-bottom: 0;
-}
-
 .input::placeholder { color: var(--text-secondary); }
-select.input:invalid { color: var(--text-secondary); } /* placeholder 스타일 적용 */
 
 .input:focus {
     outline: none;
     border-color: var(--primary);
     box-shadow: 0 0 0 3px rgba(106, 90, 205, 0.15);
-}
-
-select.input {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%236b7280%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
-    background-repeat: no-repeat;
-    background-position: right 16px center;
-    background-size: 12px;
 }
 
 .submit-btn {
@@ -117,9 +99,7 @@ select.input {
     border: none;
     margin-top: 8px;
 }
-.submit-btn:hover {
-    background-color: var(--primary-dark);
-}
+.submit-btn:hover { background-color: var(--primary-dark); }
 
 .link-button {
     display: block;
@@ -137,6 +117,4 @@ select.input {
     text-decoration: none;
     transition: background-color 0.2s ease;
 }
-.link-button:hover {
-    background-color: #f3f4f6;
-}
+.link-button:hover { background-color: #f3f4f6; }

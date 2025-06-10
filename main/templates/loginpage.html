@@ -1,79 +1,66 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>로그인</title>
-        <link href="{{ url_for('static', filename='loginpage.css') }}" rel="stylesheet" />
-    </head>
-    <body>
-        <div class="page-title">
-            <h1>로그인</h1>
-        </div>
-        
-            <button onclick="choose_stu()" class="button" id="stu_option" >학생</button>
-            <button onclick="choose_prof()" class="button" id="prof_option">교수자</button>
-            <br>
-            <form action="/login" method="POST"  id="stu_login">    
-            <div class="format">
-                <input type="hidden" name="prof_or_stu" value="student">
-                <input class="input" placeholder="username" type="text" id="stu_username" name="username" required >
-                <br>
-                <input class="input" placeholder="password"type="password" id="stu_password" name="password" required>
-                <button id="login" class="input" type="submit">로그인</button>
-            </div>
-            </form>
+<html lang="ko">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인</title>
+    <link href="{{ url_for('static', filename='loginpage.css') }}" rel="stylesheet" />
+</head>
+<body>
+    <div class="page-title">
+        <h1>로그인</h1>
+    </div>
 
-            <form action="/login" method="POST"  id="prof_login">    
-            <div class="format">
-                <input type="hidden" name="prof_or_stu" value="prof">
-                <input class="input" placeholder="username" type="text" id="prof_username" name="username" required >
-                <br>
-                <input class="input" placeholder="password"type="password" id="prof_password" name="password" required>
-                <button id="login" class="input" type="submit">로그인</button>
-            </div>
-            </form>
-            
-            <button class="input" onclick="location.href='/signup'">회원가입</button>
+    <div class="options-container">
+        <button onclick="choose_stu()" class="button" id="stu_option">학생</button>
+        <button onclick="choose_prof()" class="button" id="prof_option">교수자</button>
+    </div>
 
-            {% with messages = get_flashed_messages() %}
-                {% if messages %}     
-                <script>
-                    alert("{{ messages[-1] }}");
-                </script>
-                {% endif %}
-            {% endwith %}
-        
-        <p id="result"></p>
-        
+    <form action="/login" method="POST" id="stu_login" class="login-form">
+        <input type="hidden" name="prof_or_stu" value="student">
+        <input class="input" placeholder="아이디" type="text" name="username" required>
+        <input class="input" placeholder="비밀번호" type="password" name="password" required>
+        <button class="input submit-btn" type="submit">로그인</button>
+    </form>
+
+    <form action="/login" method="POST" id="prof_login" class="login-form">
+        <input type="hidden" name="prof_or_stu" value="prof">
+        <input class="input" placeholder="아이디" type="text" name="username" required>
+        <input class="input" placeholder="비밀번호" type="password" name="password" required>
+        <button class="input submit-btn" type="submit">로그인</button>
+    </form>
+
+    <a href="{{ url_for('signup') }}" class="link-button">회원가입 페이지로</a>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <script>
+            alert("{{ messages[-1] }}");
+        </script>
+        {% endif %}
+    {% endwith %}
+
     <script>
-        var prof_option = document.getElementById("prof_option");
-        var stu_option = document.getElementById("stu_option");
-        var stu_login = document.getElementById("stu_login");
-        var prof_login = document.getElementById("prof_login");
+        const prof_option = document.getElementById("prof_option");
+        const stu_option = document.getElementById("stu_option");
+        
+        const stu_login_form = document.getElementById("stu_login");
+        const prof_login_form = document.getElementById("prof_login");
 
-        choose_stu()
-        function choose_stu(){
-            stu_option.style.backgroundColor = "blue";
-            stu_option.style.color = "white";
-            prof_option.style.backgroundColor = "white";
-            prof_option.style.color = "black";
-
-            prof_login.style.display = "none";
-            stu_login.style.display = "block";
-            
+        function choose_stu() {
+            stu_option.classList.add("active");
+            prof_option.classList.remove("active");
+            prof_login_form.style.display = "none";
+            stu_login_form.style.display = "flex";
         }
 
-        function choose_prof(){
-            stu_option.style.backgroundColor = "white";
-            stu_option.style.color = "black";
-            prof_option.style.backgroundColor = "blue";
-            prof_option.style.color = "white";
-
-            stu_login.style.display = "none";
-            prof_login.style.display = "block";
-
+        function choose_prof() {
+            prof_option.classList.add("active");
+            stu_option.classList.remove("active");
+            stu_login_form.style.display = "none";
+            prof_login_form.style.display = "flex";
         }
-
+        
+        choose_stu();
     </script>
-    </body>      
+</body>
 </html>
