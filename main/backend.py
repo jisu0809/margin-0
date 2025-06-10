@@ -243,7 +243,6 @@ def create_teample():
                conn.close()
                return redirect(url_for('teample_prof'))
 
-
 @app.route('/mainpage_stu')
 def mainpage_stu():
         username = session.get("username")
@@ -306,14 +305,15 @@ def teample_stu():
                 current_team_relationship_info = cursor.fetchall()
                 current_team_info = []
                 if current_team_relationship_info:
-                        for rel in current_team_relationship_info:
-                                team_id = rel['team_id']  
-                                cursor.execute('SELECT * FROM team_relationship WHERE team_id = ?', (team_id,))
+                        for _ in range(len(current_team_relationship_info)):
+                                cursor.execute('SELECT * FROM team_relationship WHERE team_id = ?', (current_team_relationship_info[0][1],))
                                 current_team_info.append(cursor.fetchall())
-                conn.close()
-                return render_template("teample_stu.html", current_team_info=current_team_info, session=session, current_team_relationship_info=current_team_relationship_info)
-        else:
-                   # 팀이 아직 없으면 대기 화면으로 이동
+                        conn.commit()
+                        conn.close() 
+                        return render_template("teample_stu.html", current_team_info = current_team_info, session = session, current_team_relationship_info = current_team_relationship_info)
+                return redirect(url_for('waiting_for_teample'))
+
+        else: 
                 return redirect(url_for('waiting_for_teample'))
 
 @app.route('/waiting_for_teample', methods=['GET', 'POST'])
@@ -404,15 +404,14 @@ def on_chat(data):
 @socketio.on('prof_send_chat')
 def prof_send_chat(data):
     targetId = data['targetId']  
-    message = data['class_msg']
+    message = data['message']
     username = data['username']
     room = targetId
-    emit('class_chat', {'username': f"PROFESSOR {username}", 'class_msg': message}, room=room, include_self=False)
-    emit('class_chat', {'username': f"PROFESSOR {username}", 'class_msg': message}, include_self=True)
-
+    emit('class_chat', {'username': "PROFESSOR{username}", 'class_msg': message}, room=room, include_self=True)
 
 
 if __name__ == '__main__':
+        app.run( port="8000", debug=True)
         if not os.path.exists(app.config['UPLOAD_FOLDER']):
                 os.makedirs(app.config['UPLOAD_FOLDER'])
-        socketio.run(app, port=8000, debug=True)
+                socketio.run(app, port=8000, debug=True)
