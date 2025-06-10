@@ -241,7 +241,8 @@ def create_teample():
         finally: 
                conn.commit()
                conn.close()
-               return redirect(url_for('teample_prof'))
+               return render_template("teample_prof.html")
+
 
 @app.route('/mainpage_stu')
 def mainpage_stu():
