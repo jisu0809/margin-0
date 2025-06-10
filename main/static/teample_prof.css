@@ -1,14 +1,13 @@
-/* static/teample_prof.css & teample_stu.css 공통 */
+/* static/teample_prof.css */
 :root {
-    --primary: #6a5acd;
-    --primary-dark: #5d4eb4;
+    --prof-primary: #1E40AF; /* 다크 블루 */
+    --prof-primary-dark: #1E3A8A;
     --white: #ffffff;
-    --text-primary: #1f2937;
-    --text-secondary: #6b7280;
-    --text-light: #f0f0f0;
+    --text-light: #f8f9fa;
+    --text-muted: #d1d5db;
+    --text-dark: #212529;
     --bg-light: #f9fafb;
-    --border-light: rgba(255, 255, 255, 0.1);
-    --border-color: #e5e7eb;
+    --border-color: #dee2e6;
     --font-family: 'Noto Sans KR', sans-serif;
 }
 
@@ -16,66 +15,76 @@
 body { margin: 0; font-family: var(--font-family); background: var(--bg-light); }
 .container { display: flex; min-height: 100vh; }
 
+/* 사이드바 */
 .sidebar {
     width: 280px;
-    background: var(--primary); /* 블루 테마 적용 */
+    background: var(--prof-primary);
     padding: 32px 24px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    flex-shrink: 0;
     color: var(--white);
+    flex-shrink: 0;
 }
+.profile { text-align: center; margin-bottom: 24px; }
+.profile-pic { width: 80px; height: 80px; background: var(--white); border-radius: 50%; margin: 0 auto 16px; border: 3px solid var(--prof-primary-dark); }
 
-.profile {
-    width: 100%; padding: 24px;
-    margin-bottom: 30px;
-    background: var(--border-light);
-    border-radius: 16px;
-    text-align: center;
-}
-.profile-pic {
-    width: 80px; height: 80px;
-    background: var(--white);
-    border-radius: 50%; margin: 0 auto 18px;
-    border: 3px solid var(--primary-dark);
-}
-
+/* 사이드바 메뉴 버튼 */
 .menu { width: 100%; }
 .menu button {
-    width: 100%; margin-bottom: 12px;
-    padding: 14px 0;
+    width: 100%; margin-bottom: 12px; padding: 14px 0;
     font-size: 1rem; font-weight: 600;
     background: rgba(255, 255, 255, 0.15);
     color: var(--text-light);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 12px;
-    cursor: pointer; transition: all 0.3s ease;
+    border-radius: 12px; cursor: pointer; transition: all 0.3s ease;
 }
-.menu button:hover {
-    background: var(--white);
-    color: var(--primary);
-}
+.menu button:hover { background: var(--white); color: var(--prof-primary); }
 
+/* 팀 생성 폼 (숨겨진 영역) */
+#teample_creator {
+    display: none;
+    background: rgba(0,0,0,0.2);
+    padding: 16px;
+    border-radius: 8px;
+    margin: -5px 0 15px 0;
+}
+#teample_creator form input[type="number"],
+#teample_creator form button {
+    width: 100%; box-sizing: border-box; padding: 10px;
+    border-radius: 6px; border: 1px solid var(--text-muted); margin-bottom: 10px;
+}
+#teample_creator form input[type="radio"] { margin: 0 5px 10px 10px; }
+#teample_creator form button[type="submit"] { background: var(--white); color: var(--prof-primary); font-weight: bold; }
+#teample_creator form button[type="button"] { background: transparent; color: var(--text-light); border: 1px solid var(--text-muted); }
+
+/* 사이드바 게시판 */
+#report { margin-top: 16px; }
+#class_chat {
+    background-color: var(--white);
+    color: var(--text-dark);
+    height: 150px;
+    border-radius: 8px;
+    padding: 10px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+}
+#report #target, #report #class_msg {
+    width: 100%; padding: 8px; border-radius: 6px; border: none; margin-bottom: 10px;
+}
+#report button { width: 100%; padding: 8px; border-radius: 6px; }
+
+/* 메인 콘텐츠 */
 .main-content { flex: 1; padding: 40px; }
-.main-content h2 {
-    color: var(--text-primary);
-    margin: 0 0 32px;
-    font-size: 2.25rem; font-weight: 700;
+.main-content h2 { color: var(--text-dark); margin: 0 0 32px; font-size: 2.25rem; font-weight: 700; }
+.team-card { background: var(--white); border-radius: 16px; margin-bottom: 24px; padding: 28px; box-shadow: 0 4px 24px rgba(0,0,0,0.05); }
+.team-header { font-weight: 700; font-size: 1.4rem; margin-bottom: 16px; color: var(--prof-primary); }
+.team-members p { margin: 4px 0; }
+.team-actions button {
+    margin-top: 16px; padding: 10px 20px;
+    border-radius: 8px; background: #eef2ff; color: var(--prof-primary);
+    border: 1px solid #c7d2fe; font-weight: 600; cursor: pointer; transition: all 0.2s ease;
 }
-
-.team-card, .team-board-preview {
-    background: var(--white);
-    border-radius: 16px;
-    margin-bottom: 24px;
-    padding: 28px;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
-    border: 1px solid var(--border-color);
-}
-.team-header {
-    font-weight: 700; font-size: 1.4rem;
-    margin-bottom: 16px; color: var(--primary);
-}
+.team-actions button:hover { background: var(--prof-primary); color: var(--white); }
 
 @media screen and (max-width: 768px) {
     .container { flex-direction: column; }

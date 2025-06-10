@@ -1,103 +1,69 @@
-/* static/mainpage_prof.css */
 :root {
-    --primary: #6a5acd; /* 메인 블루/퍼플 계열 색상 */
-    --primary-dark: #5d4eb4;
+    --prof-primary: #1E40AF;      /* [수정] 더 어두운 파란색 (다크 블루) */
+    --prof-primary-dark: #1E3A8A; /* [수정] 호버 효과를 위한 더 어두운 계열 */
     --white: #ffffff;
-    --text-light: #f0f0f0;
-    --text-muted: #d1d5db;
+    --text-light: #f8f9fa;
+    --text-muted: #e9ecef;
+    --text-dark: #212529;
     --bg-light: #f9fafb;
-    --border-color: #e5e7eb;
+    --border-color: #dee2e6;
     --font-family: 'Noto Sans KR', sans-serif;
 }
-
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { 
-    font-family: var(--font-family);
-    background-color: var(--bg-light);
-}
-
+body { font-family: 'Noto Sans KR', sans-serif; background-color: var(--bg-light); }
 .container { display: flex; min-height: 100vh; }
 
 /* 사이드바 */
 .sidebar {
     width: 280px;
-    background: var(--primary); /* 사이드바 배경을 블루 테마로 변경 */
+    background: var(--prof-primary);
     padding: 32px 24px;
     display: flex;
     flex-direction: column;
     flex-shrink: 0;
+    color: var(--white);
 }
 
 .profile { text-align: center; margin-bottom: 32px; }
-.profile-pic { 
-    width: 80px; height: 80px; 
-    background: var(--white);
-    border-radius: 50%; 
-    margin: 0 auto 16px;
-    border: 3px solid var(--primary-dark);
-}
-.profile h3 { margin: 12px 0 8px; color: var(--white); }
-.profile p { margin: 4px 0; font-size: 13px; color: var(--text-muted); }
+.profile-pic { width: 80px; height: 80px; background: var(--white); border-radius: 50%; margin: 0 auto 16px; }
+.profile h3 { color: var(--white); }
+.profile p { color: var(--text-muted); font-size: 14px; }
 
 /* 수업 개설 버튼 */
-.create-class-section { margin-bottom: 24px; }
+.create_class { margin-top: 24px; }
 #create_class_button {
-    width: 100%; padding: 14px 20px;
-    font-size: 15px; font-weight: 600;
-    color: var(--primary);
-    background: var(--white);
-    border: none; border-radius: 12px;
-    cursor: pointer; transition: all 0.3s ease;
-}
-#create_class_button:hover { 
-    background: var(--text-light);
-    transform: translateY(-2px); 
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-}
-
-/* 공지사항 */
-.notice {
     width: 100%;
-    background: rgba(255, 255, 255, 0.1);
-    padding: 24px 20px;
-    margin-top: auto;
-    border-radius: 16px;
+    padding: 14px 20px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--prof-primary);
+    background: var(--white);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
-.notice h4 { color: var(--white); margin-bottom: 12px; }
-.notice p { color: var(--text-light); font-size: 13px; line-height: 1.5; }
+#create_class_button:hover { background-color: var(--text-light); }
 
-/* 메인 콘텐츠 */
-.main-content { flex: 1; padding: 40px; }
-.page-header { margin-bottom: 40px; }
-.page-header h1 { font-size: 2.5rem; font-weight: 700; }
-.page-header p { font-size: 1.1rem; color: #6b7280; }
-
-.class-grid {
-    display: grid;
-    gap: 24px;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-}
-.class-grid form button {
-    width: 100%; padding: 28px;
-    background: var(--white); border-radius: 16px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
+/* 수업 목록 */
+.class_list { flex: 1; padding: 40px; }
+.class_list form button {
+    display: block;
+    width: 100%;
+    padding: 25px;
+    margin-bottom: 20px;
+    background: var(--white);
     border: 1px solid var(--border-color);
-    cursor: pointer; text-align: left;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+    font-size: 1.1rem;
+    text-align: left;
+    cursor: pointer;
     transition: all 0.3s ease;
 }
-.class-grid form button:hover {
-    transform: translateY(-4px); 
-    box-shadow: 0 12px 25px rgba(106, 90, 205, 0.15); 
-    border-color: var(--primary);
-}
-.class-info h3 { font-size: 1.3rem; margin-bottom: 12px; }
-.class-details p { font-size: 14px; color: #6b7280; margin: 4px 0; }
-
-/* 수업 없을 때 */
-.empty-state { text-align: center; padding: 60px 40px; }
-.empty-state h3 { font-size: 1.5rem; margin-bottom: 12px; }
-
-@media screen and (max-width: 768px) {
-    .container { flex-direction: column; }
-    .sidebar { width: 100%; }
+.class_list form button:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(0, 123, 255, 0.15);
+    border-color: var(--prof-primary);
+    color: var(--prof-primary);
 }

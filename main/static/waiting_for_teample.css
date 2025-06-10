@@ -1,80 +1,60 @@
-/* static/waiting_for_teample.css */
+/* 방법 1: 현재 HTML 구조 기반 CSS */
 :root {
-    --primary: #6a5acd;
+    --stu-primary: #6f42c1; /* 학생용 메인 보라 색상 */
+    --stu-primary-dark: #5a32a3;
+    --white: #ffffff;
+    --text-light: #f8f9fa;
+    --text-muted: #e9ecef;
     --bg-light: #f9fafb;
+    --border-color: #e5e7eb;
     --font-family: 'Noto Sans KR', sans-serif;
 }
 
-/* sidebar, container 등 기본 틀은 teample_stu.css의 블루 테마와 동일 */
-* { box-sizing: border-box; }
-body { margin: 0; font-family: var(--font-family); background: var(--bg-light); }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: var(--font-family); background-color: var(--bg-light); }
 .container { display: flex; min-height: 100vh; }
+
+/* 사이드바 */
 .sidebar {
-    width: 280px; background: var(--primary); padding: 32px 24px;
-    display: flex; flex-direction: column; align-items: center;
-    flex-shrink: 0; color: white;
-}
-.profile {
-    width: 100%; padding: 24px; margin-bottom: 30px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 16px; text-align: center;
-}
-.profile-pic {
-    width: 80px; height: 80px; background: white;
-    border-radius: 50%; margin: 0 auto 18px;
-    border: 3px solid #5d4eb4;
-}
-.back-button {
-    color: white; text-decoration: none; font-weight: 600;
-    margin-top: auto; padding: 12px; background: rgba(255,255,255,0.1);
-    border-radius: 8px; width: 100%; text-align: center;
+    width: 100%; /* 잘못된 구조로 인해 전체 너비를 차지하게 됨 */
+    background: var(--stu-primary);
+    padding: 32px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 모든 자식 요소 중앙 정렬 */
+    color: var(--white);
 }
 
-/* 메인 콘텐츠 */
-.main-content {
-    flex: 1; padding: 60px;
-    display: flex; justify-content: center; align-items: center;
+.profile { text-align: center; margin-bottom: 32px; max-width: 300px; }
+.profile-pic { width: 80px; height: 80px; background: var(--white); border-radius: 50%; margin: 0 auto 16px; border: 3px solid var(--stu-primary-dark); }
+.notice { margin-top: 16px; background: rgba(255,255,255,0.1); padding: 15px; border-radius: 12px; }
+
+/* 메인 콘텐츠 (사이드바 내부에 있음) */
+#message {
+    margin-top: 40px;
+    padding: 40px;
+    background: var(--bg-light);
+    color: #333;
+    border-radius: 16px;
+    text-align: center;
 }
 
-.waiting-box { text-align: center; max-width: 600px; }
-.waiting-box h1 { font-size: 2rem; color: #1f2937; }
-.waiting-box p { font-size: 1.1rem; color: #6b7280; line-height: 1.7; }
-.loading-dots { margin-top: 32px; }
-.loading-dots span {
-    display: inline-block; width: 12px; height: 12px;
-    background: var(--primary); border-radius: 50%;
-    animation: bounce 1.4s infinite ease-in-out both;
-}
-.loading-dots span:nth-child(1) { animation-delay: -0.32s; }
-.loading-dots span:nth-child(2) { animation-delay: -0.16s; }
-
-@keyframes bounce {
-  0%, 80%, 100% { transform: scale(0); }
-  40% { transform: scale(1.0); }
+.class_list {
+    margin-top: 40px;
+    padding: 20px;
+    background: var(--bg-light);
+    border-radius: 16px;
+    width: 100%;
+    max-width: 900px;
+    color: #333;
 }
 
-/* 팀 선택 화면 */
-#choose_team { width: 100%; }
-.page-header { text-align: center; margin-bottom: 40px; }
-.team-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 24px;
-}
 .team-card {
-    background: white; padding: 24px; border-radius: 12px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.07);
-    display: flex; flex-direction: column;
+    background: var(--white);
+    padding: 20px;
+    margin-bottom: 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
 }
-.team-header { display: flex; justify-content: space-between; align-items: center; }
-.team-header h3 { color: var(--primary); margin: 0; }
-.team-capacity { background: #eef2ff; color: var(--primary); padding: 4px 10px; border-radius: 20px; font-weight: 600; }
-.team-members { margin: 20px 0; flex-grow: 1; }
-.members-list { display: flex; flex-wrap: wrap; gap: 8px; }
-.member-tag { background: #f3f4f6; padding: 4px 8px; border-radius: 6px; }
-.no-members { color: #9ca3af; font-style: italic; }
-.join-btn {
-    width: 100%; padding: 12px; background: var(--primary);
-    color: white; border: none; border-radius: 8px;
-    cursor: pointer; font-weight: 600; font-size: 1rem;
-}
+.team-header { color: var(--stu-primary); font-weight: bold; }

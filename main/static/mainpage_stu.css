@@ -62,9 +62,6 @@ body {
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
 }
 
-/* 공지사항 */
-
-
 .logout button {
     margin-top: auto;
     width: 100%; padding: 14px 20px;
@@ -80,6 +77,31 @@ body {
     transform: translateY(-2px); 
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
 }
+/* 공지사항 */
+.notice {
+    margin-top: auto; /* 다른 요소들과의 간격을 만들며 사이드바 하단에 위치 */
+    background: rgba(255, 255, 255, 0.1); /* 사이드바 색상이 비치는 반투명 배경 */
+    padding: 20px;
+    border-radius: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2); /* 위쪽에 은은한 경계선 */
+}
+
+.notice h4 {
+    margin: 0 0 12px 0;
+    font-weight: 600;
+    color: var(--white); /* :root에 정의된 흰색 변수 사용 */
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.notice p {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text-muted); /* :root에 정의된 밝은 회색 변수 사용 */
+    margin: 8px 0;
+}
+
+
 
 /* 메인 콘텐츠 */
 .main-content { flex: 1; padding: 40px; }
