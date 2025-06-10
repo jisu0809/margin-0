@@ -1,6 +1,5 @@
-/* static/mainpage_stu.css */
 :root {
-    --primary: #6a5acd; /* 메인 블루/퍼플 계열 색상 */
+    --primary: #6a5acd;
     --primary-dark: #5d4eb4;
     --white: #ffffff;
     --text-light: #f0f0f0;
@@ -18,10 +17,9 @@ body {
 
 .container { display: flex; min-height: 100vh; }
 
-/* 사이드바 */
 .sidebar {
     width: 280px;
-    background: var(--primary); /* 사이드바 배경을 블루 테마로 변경 */
+    background: var(--primary); 
     padding: 32px 24px;
     display: flex;
     flex-direction: column;
@@ -39,7 +37,6 @@ body {
 .profile h3 { margin: 12px 0 8px; color: var(--white); }
 .profile p { margin: 4px 0; font-size: 13px; color: var(--text-muted); }
 
-/* 수업 참여 버튼 */
 .join_team { margin-bottom: 24px; }
 .join_team input {
     width: 100%; padding: 14px;
@@ -79,17 +76,16 @@ body {
 }
 /* 공지사항 */
 .notice {
-    margin-top: auto; /* 다른 요소들과의 간격을 만들며 사이드바 하단에 위치 */
-    background: rgba(255, 255, 255, 0.1); /* 사이드바 색상이 비치는 반투명 배경 */
-    padding: 20px;
+    margin-top: auto; 
+    background: rgba(255, 255, 255, 0.1); 
     border-radius: 12px;
-    border-top: 1px solid rgba(255, 255, 255, 0.2); /* 위쪽에 은은한 경계선 */
+    border-top: 1px solid rgba(255, 255, 255, 0.2); 
 }
 
 .notice h4 {
     margin: 0 0 12px 0;
     font-weight: 600;
-    color: var(--white); /* :root에 정의된 흰색 변수 사용 */
+    color: var(--white);
     padding-bottom: 10px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
@@ -97,13 +93,12 @@ body {
 .notice p {
     font-size: 13px;
     line-height: 1.6;
-    color: var(--text-muted); /* :root에 정의된 밝은 회색 변수 사용 */
+    color: var(--text-muted);
     margin: 8px 0;
 }
 
 
 
-/* 메인 콘텐츠 */
 .main-content { flex: 1; padding: 40px; }
 .page-header { margin-bottom: 40px; }
 .page-header h1 { font-size: 2.5rem; font-weight: 700; }
@@ -130,7 +125,6 @@ body {
 .class-info h3 { font-size: 1.3rem; margin-bottom: 12px; }
 .class-details p { font-size: 14px; color: #6b7280; margin: 4px 0; }
 
-/* 수업 없을 때 */
 .empty-state { text-align: center; padding: 60px 40px; }
 .empty-state h3 { font-size: 1.5rem; margin-bottom: 12px; }
 

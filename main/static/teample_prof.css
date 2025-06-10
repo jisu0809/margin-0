@@ -1,6 +1,5 @@
-/* static/teample_prof.css */
 :root {
-    --prof-primary: #1E40AF; /* 다크 블루 */
+    --prof-primary: #1E40AF; 
     --prof-primary-dark: #1E3A8A;
     --white: #ffffff;
     --text-light: #f8f9fa;
@@ -15,7 +14,6 @@
 body { margin: 0; font-family: var(--font-family); background: var(--bg-light); }
 .container { display: flex; min-height: 100vh; }
 
-/* 사이드바 */
 .sidebar {
     width: 280px;
     background: var(--prof-primary);
@@ -28,7 +26,6 @@ body { margin: 0; font-family: var(--font-family); background: var(--bg-light); 
 .profile { text-align: center; margin-bottom: 24px; }
 .profile-pic { width: 80px; height: 80px; background: var(--white); border-radius: 50%; margin: 0 auto 16px; border: 3px solid var(--prof-primary-dark); }
 
-/* 사이드바 메뉴 버튼 */
 .menu { width: 100%; }
 .menu button {
     width: 100%; margin-bottom: 12px; padding: 14px 0;
@@ -40,7 +37,6 @@ body { margin: 0; font-family: var(--font-family); background: var(--bg-light); 
 }
 .menu button:hover { background: var(--white); color: var(--prof-primary); }
 
-/* 팀 생성 폼 (숨겨진 영역) */
 #teample_creator {
     display: none;
     background: rgba(0,0,0,0.2);
@@ -73,7 +69,6 @@ body { margin: 0; font-family: var(--font-family); background: var(--bg-light); 
 }
 #report button { width: 100%; padding: 8px; border-radius: 6px; }
 
-/* 메인 콘텐츠 */
 .main-content { flex: 1; padding: 40px; }
 .main-content h2 { color: var(--text-dark); margin: 0 0 32px; font-size: 2.25rem; font-weight: 700; }
 .team-card { background: var(--white); border-radius: 16px; margin-bottom: 24px; padding: 28px; box-shadow: 0 4px 24px rgba(0,0,0,0.05); }
