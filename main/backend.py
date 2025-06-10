@@ -313,6 +313,7 @@ def teample_stu():
                 conn.close()
                 return render_template("teample_stu.html", current_team_info=current_team_info, session=session, current_team_relationship_info=current_team_relationship_info)
         else:
+                conn.commit()
                 conn.close()
                         # 팀이 아직 없으면 대기 화면으로 이동
                 return redirect(url_for('waiting_for_teample'))
