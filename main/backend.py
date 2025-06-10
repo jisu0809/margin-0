@@ -296,29 +296,26 @@ def join_class():
 
 @app.route('/teample_stu', methods=['GET', 'POST'])
 def teample_stu():
-    username = session.get('username')
-    class_code = session.get('class_code')
-    if not username or not class_code:
-        flash("로그인이 필요하거나 클래스 선택이 필요합니다.")
-        return redirect(url_for('login'))
-
-    conn = sqlite3.connect('teample.db')
-    conn.row_factory = sqlite3.Row
-    cursor = conn.cursor()
-    cursor.execute('SELECT * FROM team_relationship WHERE username = ? and class_code = ?', (username, class_code))
-    current_team_relationship_info = cursor.fetchall()
-    current_team_info = []
-    if current_team_relationship_info:
-        for rel in current_team_relationship_info:
-            team_id = rel['team_id']  
-            cursor.execute('SELECT * FROM team_relationship WHERE team_id = ?', (team_id,))
-            current_team_info.append(cursor.fetchall())
-        conn.close()
-        return render_template("teample_stu.html", current_team_info=current_team_info, session=session, current_team_relationship_info=current_team_relationship_info)
-    else:
-        conn.close()
-        # 팀이 아직 없으면 대기 화면으로 이동
-        return redirect(url_for('waiting_for_teample'))
+        if request.method == 'POST':
+                class_code = session.get('class_code')
+                username = session.get('username')
+                conn = sqlite3.connect('teample.db')
+                conn.row_factory = sqlite3.Row
+                cursor = conn.cursor()
+                cursor.execute('SELECT * FROM team_relationship WHERE username = ? and class_code = ?', (username, class_code))
+                current_team_relationship_info = cursor.fetchall()
+                current_team_info = []
+                if current_team_relationship_info:
+                        for rel in current_team_relationship_info:
+                                team_id = rel['team_id']  
+                                cursor.execute('SELECT * FROM team_relationship WHERE team_id = ?', (team_id,))
+                                current_team_info.append(cursor.fetchall())
+                conn.close()
+                return render_template("teample_stu.html", current_team_info=current_team_info, session=session, current_team_relationship_info=current_team_relationship_info)
+        else:
+                conn.close()
+                        # 팀이 아직 없으면 대기 화면으로 이동
+                return redirect(url_for('waiting_for_teample'))
 
 @app.route('/waiting_for_teample', methods=['GET', 'POST'])
 def waiting_for_teample():
