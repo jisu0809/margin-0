@@ -295,7 +295,11 @@ def join_class():
 
 @app.route('/teample_stu', methods=['GET', 'POST'])
 def teample_stu():
-    class_code = request.form.get('class_code')
+    if request.method == 'POST':
+        class_code = request.form.get('class_code')
+    else:
+        class_code = request.args.get('class_code')  # GET 요청 대응
+
     username = session.get('username')
     conn = sqlite3.connect('teample.db')
     conn.row_factory = sqlite3.Row
@@ -313,7 +317,7 @@ def teample_stu():
         return render_template("teample_stu.html", current_team_info=current_team_info, session=session, current_team_relationship_info=current_team_relationship_info)
     else:
         conn.close()
-        return redirect(url_for('waiting_for_teample', class_code= class_code) )
+        return redirect(url_for('waiting_for_teample', class_code=class_code))
 
 @app.route('/waiting_for_teample', methods=['GET', 'POST'])
 def waiting_for_teample():
