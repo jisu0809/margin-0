@@ -285,7 +285,7 @@ def join_class():
                         session['class_code'] = class_code
                         conn.commit()
                         conn.close()
-                        return redirect(url_for('teample_stu'))
+                        return redirect(url_for('teample_stu', class_code= class_code))
                 else:
                         conn.commit()
                         conn.close()
@@ -295,30 +295,29 @@ def join_class():
 
 @app.route('/teample_stu', methods=['GET', 'POST'])
 def teample_stu():
-        if request.method == 'POST':
-                class_code = session.get('class_code')
-                username = session.get('username')
-                conn = sqlite3.connect('teample.db')
-                conn.row_factory = sqlite3.Row
-                cursor = conn.cursor()
-                cursor.execute('SELECT * FROM team_relationship WHERE username = ? and class_code = ?', (username, class_code))
-                current_team_relationship_info = cursor.fetchall()
-                current_team_info = []
-                if current_team_relationship_info:
-                        for _ in range(len(current_team_relationship_info)):
-                                cursor.execute('SELECT * FROM team_relationship WHERE team_id = ?', (current_team_relationship_info[0][1],))
-                                current_team_info.append(cursor.fetchall())
-                        conn.commit()
-                        conn.close() 
-                        return render_template("teample_stu.html", current_team_info = current_team_info, session = session, current_team_relationship_info = current_team_relationship_info)
-                return redirect(url_for('waiting_for_teample'))
-
-        else: 
-                return redirect(url_for('waiting_for_teample'))
+    class_code = request.form.get('class_code')
+    username = session.get('username')
+    conn = sqlite3.connect('teample.db')
+    conn.row_factory = sqlite3.Row
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM team_relationship WHERE username = ? and class_code = ?', (username, class_code))
+    current_team_relationship_info = cursor.fetchall()
+    current_team_info = []
+    
+    if current_team_relationship_info:
+        for rel in current_team_relationship_info:
+            team_id = rel['team_id']
+            cursor.execute('SELECT * FROM team_relationship WHERE team_id = ?', (team_id,))
+            current_team_info.append(cursor.fetchall())
+        conn.close()
+        return render_template("teample_stu.html", current_team_info=current_team_info, session=session, current_team_relationship_info=current_team_relationship_info)
+    else:
+        conn.close()
+        return redirect(url_for('waiting_for_teample', class_code= class_code) )
 
 @app.route('/waiting_for_teample', methods=['GET', 'POST'])
 def waiting_for_teample():
-        class_code = session.get('class_code')
+        class_code = request.args.get('class_code')
         conn = sqlite3.connect('teample.db')
         conn.row_factory = sqlite3.Row
         cursor = conn.cursor()
@@ -329,13 +328,16 @@ def waiting_for_teample():
         cursor.execute('SELECT * FROM team_relationship WHERE class_code = ?', (class_code,))
         team_relationship = cursor.fetchall()
         conn.close()
-        return render_template("waiting_for_teample.html", current_class_info = current_class_info, session = session, team_info = team_info, team_relationship = team_relationship)
+        print('class_code:', class_code)
+        print('team_info:', team_info)
+
+        return render_template("waiting_for_teample.html", current_class_info = current_class_info, session = session, team_info = team_info, team_relationship = team_relationship, class_code = class_code)
 
 @app.route('/join_team', methods=['GET', 'POST'])
 def join_team():
         if request.method == 'POST':
                 username = session.get('username')
-                class_code = session.get('class_code')
+                class_code = request.form.get('class_code')
                 team_id = request.form['team_id']
                 conn = sqlite3.connect('teample.db')
                 cursor = conn.cursor()
@@ -343,8 +345,8 @@ def join_team():
                 cursor.execute('UPDATE team_info SET current_size = current_size + 1 WHERE team_id = ?', (team_id,))
                 conn.commit()
                 conn.close()
-                return redirect(url_for('teample_stu'))
-        return redirect(url_for('teample_stu'))
+                return redirect(url_for('teample_stu', class_code=class_code))
+        return redirect(url_for('teample_stu', class_code=class_code))
 
 
 
@@ -404,14 +406,14 @@ def on_chat(data):
 @socketio.on('prof_send_chat')
 def prof_send_chat(data):
     targetId = data['targetId']  
-    message = data['message']
+    message = data['class_msg']
     username = data['username']
     room = targetId
-    emit('class_chat', {'username': "PROFESSOR{username}", 'class_msg': message}, room=room, include_self=True)
+    emit('class_chat', {'username': "PROFESSOR{username}", 'class_msg': message}, room=room, include_self=False)
+    emit('class_chat', {'username': "PROFESSOR{username}", 'class_msg': message}, include_self=True)
 
 
 if __name__ == '__main__':
-        app.run( port="8000", debug=True)
-        if not os.path.exists(app.config['UPLOAD_FOLDER']):
-                os.makedirs(app.config['UPLOAD_FOLDER'])
-                socketio.run(app, port=8000, debug=True)
+    if not os.path.exists(app.config['UPLOAD_FOLDER']):
+        os.makedirs(app.config['UPLOAD_FOLDER'])
+    socketio.run(app, port=8000, debug=True)

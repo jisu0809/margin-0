@@ -21,9 +21,6 @@
                 </div> 
                 <div class= "class_list"  id= "choose_team"> 
                     <div class="main-content">
-                        <div id="message" class="waiting-box">
-                            <h1>  Waiting for Professor to create teams</h1>
-                        </div>
                     
                         <div class="class_list" id="choose_team">
                             {% for team in team_info %}
@@ -39,8 +36,9 @@
                                         {% endif %}
                                     {% endfor %}
                                 </div>
-                                <form action="/join_team" method="POST" onsubmit="join_team_socket('{{ team.team_id }}')">
+                                <form action="/join_team" method="POST" onsubmit="join_team_socket('{{ team.team_id }}')" >
                                     <input type="hidden" name="team_id" value="{{ team.team_id }}">   
+                                    <input type="hidden" name="class_code" value="{{ class_code }}">
                                     <button id="team_button" type="submit">팀 선택</button>
                                 </form>
                             </div>
@@ -68,6 +66,14 @@
     console.log('socket connected:', socket.id);
     });
 
+    function join_team_socket(teamId)
+   {
+    const username = "{{ session['username'] }}";
+    socket.emit('join_team_socket', { team_id: teamId, username: username });
+    console.log('emit join_class', { team_id: teamId, username: username });
+   }
 </script>
     </body>      
 </html>
+
+
